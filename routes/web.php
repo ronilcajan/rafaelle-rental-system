@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,8 +26,14 @@ Auth::routes([
     'verify' => false
 ]);
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
-
 Route::middleware(['auth','role:rental-admin|rental-manager|rental-staff'])->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::get('/users', [UserController::class, 'index'])->name('users');
+    Route::get('/users/{user}', [UserController::class, 'show']);
+    Route::post('/users/create', [UserController::class, 'store'])->name('users.store');
+    Route::post('/users/update', [UserController::class, 'update'])->name('users.update');
+    Route::delete('/users/delete/{user}', [UserController::class, 'destroy'])->name('users.delete');
+    Route::post('/users/reset/{user}', [UserController::class, 'reset'])->name('users.reset');
+
 });

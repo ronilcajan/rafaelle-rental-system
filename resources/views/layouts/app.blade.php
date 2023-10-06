@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('css/vertical-layout-light/style.css') }}">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{ asset('images/favicon.png') }}" />
+    <script src="//unpkg.com/alpinejs" defer></script>
 
     @stack('header-script')
 </head>
@@ -34,7 +35,11 @@
             @include('partials.sidebar')
             <!-- partial -->
             <div class="main-panel">
+
                 <div class="content-wrapper">
+
+                    @include('partials.alert')
+
                     @yield('content')
                 </div>
                 <!-- content-wrapper ends -->
@@ -62,13 +67,7 @@
     <script src="{{ asset('js/off-canvas.js') }}"></script>
     <script src="{{ asset('js/hoverable-collapse.js') }}"></script>
     <script src="{{ asset('js/template.js') }}"></script>
-    <script src="{{ asset('js/settings.js') }}"></script>
-    <script src="{{ asset('js/todolist.js') }}"></script>
     <!-- endinject -->
-    <!-- Custom js for this page-->
-    <script src="{{ asset('js/dashboard.js') }}"></script>
-    <script src="{{ asset('js/Chart.roundedBarCharts.js') }}"></script>
-    <!-- End custom js for this page-->
 
 
     @stack('footer-script')
