@@ -27,7 +27,6 @@ class ProfileController extends Controller
             $validate['avatar'] = $request->file('avatar')->store('avatar','public');
         }
 
-
         $user->update($validate);
         
         return  redirect()->back()->with('success','Your profile has been changed successfully!');

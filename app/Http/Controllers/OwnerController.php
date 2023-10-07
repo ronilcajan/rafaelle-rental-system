@@ -1,0 +1,94 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Http\Requests\OwnersFormRequest;
+use App\Models\Owner;
+use Illuminate\Http\Request;
+
+class OwnerController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        $this->authorize('viewAny_owners', Owner::class);
+        
+        return view('owner.index',[
+            'title' => 'Owner Management',
+            'owners' => Owner::latest()->paginate(10)
+        ]);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(OwnersFormRequest $request)
+    {
+        $this->authorize('create_owners', Owner::class);
+
+        $validate = $request->validated();
+
+        if($request->has('image')){
+            $validate['image'] = $request->file('image')->store('owners','public');
+        }
+
+        $create = Owner::create($validate);
+
+        if($create){
+            
+            return back()->with('success', 'Owner has been created successfully!');
+        }
+        
+        return back()->with('error', 'Creating an owner is not successfull!');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function find(Owner $owner)
+    {
+        return response()->json($owner);
+    }
+
+    public function show(string $id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(OwnersFormRequest $request)
+    {
+        $this->authorize('update_owners', Owner::class);
+
+        $validate = $request->validated();
+
+        if($request->has('image')){
+            $validate['image'] = $request->file('image')->store('owners','public');
+        }
+
+        $update = Owner::find($request->owner_id)->update($validate);
+
+        if($update){
+            
+            return back()->with('success', 'Owner has been updated successfully!');
+        }
+        
+        return back()->with('error', 'Updating an owner is not successfull!');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Owner $owner)
+    {
+        $this->authorize('delete_owners', $owner);
+
+        $owner->delete();
+
+        return back()->with('success', 'Owner has been deleted successfully!');
+    }
+}

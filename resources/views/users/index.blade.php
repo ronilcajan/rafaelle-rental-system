@@ -46,8 +46,8 @@
                                 <td><span class="badge badge-primary"> {{ $row->roles[0]->name }}</span></td>
                                 <td>{{ date('Y-m-d h:i:s A', strtotime($row->created_at)) }}</td>
                                 <td>
-                                    <div class="row pl-3">
-                                        <div class="col-auto p-0">
+                                    <div class="row pl-3 ">
+                                        <div class="col-auto p-0 mr-3">
                                             <form class="p-0 m-0" action="{{ route('users.reset', $row->id) }}"
                                                 method="post"
                                                 onsubmit="return confirm('Do you wish to reset this user password?');">
@@ -57,7 +57,7 @@
                                                     <i class="ti-unlock"></i></button>
                                             </form>
                                         </div>
-                                        <div class="col-auto p-0">
+                                        <div class="col-auto p-0 mr-3">
                                             <button type="button" onclick="getUser({{ $row->id }})"
                                                 class="btn btn-link btn-fw btn-sm text-success p-0" data-toggle="modal"
                                                 data-target="#update" title="Edit User">

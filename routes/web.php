@@ -5,7 +5,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\OwnerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PropertyController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
@@ -44,5 +46,13 @@ Route::middleware(['auth','role:rental-admin|rental-manager|rental-staff'])->gro
     Route::post('/users/update', [UserController::class, 'update'])->name('users.update');
     Route::delete('/users/delete/{user}', [UserController::class, 'destroy'])->name('users.delete');
     Route::post('/users/reset/{user}', [UserController::class, 'reset'])->name('users.reset');
+
+    Route::get('/owners', [OwnerController::class, 'index'])->name('owners');
+    Route::get('/owners/{owner}', [OwnerController::class, 'find']);
+    Route::post('/owners/create', [OwnerController::class, 'store'])->name('owners.store');
+    Route::post('/owners/update', [OwnerController::class, 'update'])->name('owners.update');
+    Route::delete('/owners/{owner}/delete', [OwnerController::class, 'destroy'])->name('owners.destroy');
+
+    Route::get('/property', [PropertyController::class, 'index'])->name('property');
 
 });
