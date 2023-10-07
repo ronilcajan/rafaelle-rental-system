@@ -13,12 +13,19 @@
     </style>
     {!! htmlScriptTagJsApi() !!}
 @endpush
+
+@php
+    $settings = App\Models\Settings::get()->keyBy('key');
+@endphp
+
 @section('content')
     <div class="row w-100 mx-0">
         <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left py-5 px-4 px-sm-5">
                 <div class="brand-logo text-center">
-                    <img src="../../images/logo.svg" alt="logo">
+                    <img class="img-fluid"
+                        src="{{ $settings['site_logo']->value ? asset('storage/' . $settings['site_logo']->value) : asset('images/logo.png') }}"
+                        alt="logo" width="50">
                 </div>
                 <h4 class="text-center">Hello! let's get started</h4>
                 <h6 class="font-weight-light text-center">Sign in to continue.</h6>

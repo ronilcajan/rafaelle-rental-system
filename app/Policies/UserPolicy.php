@@ -32,6 +32,11 @@ class UserPolicy
         return $user->hasRole('rental-admin');
     }
 
+    public function update_user_(User $user, User $model): bool
+    {
+        return $user->hasRole('rental-admin') || $user->id === $model->id;
+    }
+
     public function reset_user(User $user): bool
     {
         return $user->hasRole('rental-admin');

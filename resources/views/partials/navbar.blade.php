@@ -1,4 +1,4 @@
-a@php
+@php
     $settings = App\Models\Settings::get()->keyBy('key');
 @endphp
 
@@ -71,7 +71,7 @@ a@php
                         alt="profile" />
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
-                    <a class="dropdown-item">
+                    <a class="dropdown-item" href="{{ route('profile') }}">
                         <i class="ti-user text-primary"></i>
                         Profle
                     </a>

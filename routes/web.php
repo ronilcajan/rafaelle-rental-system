@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +33,10 @@ Route::middleware(['auth','role:rental-admin|rental-manager|rental-staff'])->gro
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
     Route::post('/settings/update', [SettingsController::class, 'update'])->name('settings.update');
+    Route::get('/users/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::get('/profile', [ProfileController::class, 'index'])->name('profile');
+    Route::post('/profile/{user}/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/{user}/change_password', [ProfileController::class, 'change_password'])->name('profile.change_password');
 
     Route::get('/users', [UserController::class, 'index'])->name('users');
     Route::get('/users/{user}', [UserController::class, 'show']);
