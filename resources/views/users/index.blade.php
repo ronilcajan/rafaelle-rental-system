@@ -84,7 +84,9 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">No record found!</td>
+                                <td colspan="5">
+                                    <i class="ti-dropbox" style="font-size: 100px; color:gray;"></i> <br> No record found!
+                                </td>
                             </tr>
                         @endforelse
                     </tbody>

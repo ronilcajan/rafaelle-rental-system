@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserFormRequest extends FormRequest
+class TenantRequestForm extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,9 +22,10 @@ class UserFormRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'email' => 'required|email:filter|unique:users,email,'. ($this->user_id ? $this->user_id : 'NULL'),
+            'name' => 'required|unique:tenants,name,'. ($this->tenant_id ? $this->tenant_id : 'NULL'),
             'contact_no' => 'required',
+            'email' => 'required|unique:tenants,email,'. ($this->tenant_id ? $this->tenant_id : 'NULL'),
+            'address' => 'required'
         ];
     }
 }

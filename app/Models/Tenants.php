@@ -4,23 +4,18 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Owner extends Model
+class Tenants extends Model
 {
     use HasFactory;
 
-    protected $table = 'owners';
+    protected $table = 'tenants';
 
     protected $fillable = [
         'name',
         'contact_no',
         'email',
+        'address',
         'image'
     ];
-
-    public function properties(): HasMany
-    {
-        return $this->HasMany(Property::class);
-    }
 }

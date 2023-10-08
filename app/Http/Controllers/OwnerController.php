@@ -41,7 +41,7 @@ class OwnerController extends Controller
             return back()->with('success', 'Owner has been created successfully!');
         }
         
-        return back()->with('error', 'Creating an owner is not successfull!');
+        return back()->with('error', 'Creating an owner is not successful!');
     }
 
     /**
@@ -77,7 +77,7 @@ class OwnerController extends Controller
             return back()->with('success', 'Owner has been updated successfully!');
         }
         
-        return back()->with('error', 'Updating an owner is not successfull!');
+        return back()->with('error', 'Updating an owner is not successful!');
     }
 
     /**

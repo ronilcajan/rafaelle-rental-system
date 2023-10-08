@@ -15,49 +15,47 @@
         <div class="card-body">
             <h4 class="card-title">{{ $title }}</h4>
             <p class="card-description">
-                Add, edit, and remove owners.
+                Add, edit, and remove tenants.
             </p>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Contact No</th>
                             <th>Email</th>
-                            <th>Contacts</th>
-                            <th>Created</th>
+                            <th>Address</th>
                             <th class="hide-column">Action</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @forelse ($owners as $row)
+                        @forelse ($tenants as $row)
                             <tr>
-                                <td>
-                                    <img style="border-radius: 100%"
+                                <td><img class="img-fluid"
                                         src="{{ $row->image ? asset('storage/' . $row->image) : asset('images/logo.png') }}"
                                         alt="user" width="40" height="40">
-                                    {{ ucwords($row->name) }}
-                                </td>
-                                <td>{{ $row->email }}</td>
+                                    {{ ucwords($row->name) }}</td>
                                 <td>{{ $row->contact_no }}</td>
-                                <td>{{ date('Y-m-d h:i:s A', strtotime($row->created_at)) }}</td>
+                                <td>{{ $row->email }}</td>
+                                <td>{{ $row->address }}</td>
                                 <td>
                                     <div class="row pl-3">
                                         <div class="col-auto p-0 mr-3">
-                                            <button type="button" onclick="getOwner({{ $row->id }})"
+                                            <button type="button" onclick="getTenant({{ $row->id }})"
                                                 class="btn btn-link btn-fw btn-sm text-success p-0" data-toggle="modal"
-                                                data-target="#edit" title="Edit Owner">
+                                                data-target="#edit" title="Edit Tenant">
                                                 <i class="ti-pencil"></i>
                                             </button>
                                         </div>
                                         @can('delete')
                                             <div class="col-auto p-0">
-                                                <form class="p-0 m-0" action="{{ route('owners.destroy', $row->id) }}"
+                                                <form class="p-0 m-0" action="{{ route('tenants.destroy', $row->id) }}"
                                                     method="post"
-                                                    onsubmit="return confirm('Do you wish to delete this owner?');">
+                                                    onsubmit="return confirm('Do you wish to delete this tenant?');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-link btn-fw btn-sm text-danger p-0"><i
-                                                            class="ti-trash" title="Delete Owner"></i></button>
+                                                            class="ti-trash" title="Delete Tenant"></i></button>
                                                 </form>
                                             </div>
                                         @endcan
@@ -66,8 +64,10 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="5">
-                                    <i class="ti-dropbox" style="font-size: 100px; color:gray;"></i> <br> No record found!
+                                <td colspan="5" class="text-center">
+                                    <i class="ti-dropbox" style="font-size: 100px; color:gray;"></i> <br> No
+                                    record
+                                    found!
                                 </td>
                             </tr>
                         @endforelse
@@ -76,28 +76,28 @@
             </div>
             <nav class="mt-5">
                 <ul class="pagination flex-wrap pagination-flat pagination-primary justify-content-end">
-                    {{ $owners->links() }}
+                    {{ $tenants->links() }}
                 </ul>
             </nav>
         </div>
     </div>
-    @include('owner.modal')
+    @include('tenants.modal')
 @endsection
 
 @push('footer-script')
     <script>
-        function getOwner(id) {
+        function getTenant(id) {
             $.get({
                 url: window.location.href + "/" + id,
                 success: function(response) {
 
                     console.log(response)
 
-                    $('#owner_id').val(response.id);
+                    $('#tenant_id').val(response.id);
                     $('#name').val(response.name);;
                     $('#contact_no').val(response.contact_no);
                     $('#email').val(response.email);
-
+                    $('#address').val(response.address);
                 },
                 error: function(xhr) {
                     // Handle the error
