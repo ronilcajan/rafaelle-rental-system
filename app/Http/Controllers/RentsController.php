@@ -39,7 +39,7 @@ class RentsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd(2);
     }
 
     /**
