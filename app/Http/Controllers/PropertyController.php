@@ -58,6 +58,7 @@ class PropertyController extends Controller
         return response()->json($property);
     }
 
+
     /**
      * Update the specified resource in storage.
      */

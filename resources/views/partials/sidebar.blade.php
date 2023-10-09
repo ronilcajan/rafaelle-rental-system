@@ -8,6 +8,13 @@
         </li>
 
         <li class="nav-item">
+            <a class="nav-link" href="{{ route('rents') }}">
+                <i class="ti-layers-alt menu-icon"></i>
+                <span class="menu-title">Rents</span>
+            </a>
+        </li>
+
+        <li class="nav-item">
             <a class="nav-link" data-toggle="collapse" href="#property" aria-expanded="false" aria-controls="property">
                 <i class="ti-home menu-icon"></i>
                 <span class="menu-title">Property</span>

@@ -25,6 +25,8 @@ class PropertyFormRequest extends FormRequest
             'property_name' => 'required',
             'location' => 'required',
             'price' => 'required',
+            'monthly' => 'required',
+            'yearly' => 'required',
             'status' => '',
             'owner_id' => 'required',
         ];

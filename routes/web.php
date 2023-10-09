@@ -9,6 +9,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RentsController;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
@@ -54,7 +55,8 @@ Route::middleware(['auth','role:rental-admin|rental-manager|rental-staff'])->gro
     Route::delete('/owners/{owner}/delete', [OwnerController::class, 'destroy'])->name('owners.destroy');
 
     Route::get('/property', [PropertyController::class, 'index'])->name('property');
-    Route::get('/property/{property}', [PropertyController::class, 'find']);
+    Route::get('/property/{property}', [PropertyController::class, 'find'])->name('property.find');
+    Route::get('/property/all', [PropertyController::class, 'all'])->name('property.all');
     Route::post('/property/create', [PropertyController::class, 'store'])->name('property.store');
     Route::post('/property/update', [PropertyController::class, 'update'])->name('property.update');
     Route::delete('/property/{property}/delete', [PropertyController::class, 'destroy'])->name('property.destroy');
@@ -64,5 +66,10 @@ Route::middleware(['auth','role:rental-admin|rental-manager|rental-staff'])->gro
     Route::post('/tenants/create', [TenantController::class, 'store'])->name('tenants.store');
     Route::post('/tenants/update', [TenantController::class, 'update'])->name('tenants.update');
     Route::delete('/tenants/{tenant}/delete', [TenantController::class, 'destroy'])->name('tenants.destroy');
+
+    Route::get('/rents', [RentsController::class, 'index'])->name('rents');
+    Route::get('/rents/create', [RentsController::class, 'create'])->name('rents.create');
+    Route::post('/rents/store', [RentsController::class, 'store'])->name('rents.store');
+
 
 });

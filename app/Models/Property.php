@@ -12,12 +12,14 @@ class Property extends Model
 {
     use HasFactory;
 
-    protected $table = 'property';
+    protected $table = 'properties';
 
     protected $fillable = [
         'property_name',
         'location',
         'price',
+        'monthly',
+        'yearly',
         'status',
         'image',
         'owner_id'

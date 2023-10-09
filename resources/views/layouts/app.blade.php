@@ -9,6 +9,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $settings['site_sys_name']->value ? $settings['site_sys_name']->value : 'Rental System' }}</title>
     <!-- plugins:css -->
     <link rel="stylesheet" href="{{ asset('vendors/feather/feather.css') }}">
@@ -74,6 +75,19 @@
     <script src="{{ asset('js/template.js') }}"></script>
     <!-- endinject -->
 
+    <script>
+        $(document).ready(function() {
+            // Retrieve the CSRF token from the meta tag
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            // Set the CSRF token in the request headers
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+        });
+    </script>
 
     @stack('footer-script')
 

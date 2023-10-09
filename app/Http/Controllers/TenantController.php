@@ -24,7 +24,7 @@ class TenantController extends Controller
      */
     public function store(TenantRequestForm $request)
     {
-        $this->authorize('create_tenant', Tenant::class);
+        $this->authorize('create_tenant', Tenants::class);
 
         $validate = $request->validated();
         
