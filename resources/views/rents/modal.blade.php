@@ -101,7 +101,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="location">Contact No</label>
+                        <label for="contact_no">Contact No</label>
                         <input type="text" class="form-control" name="contact_no"
                             value="{{ old('contact_no') }}" placeholder="Contact Number">
                         @error('contact_no')
@@ -109,7 +109,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="price">Email</label>
+                        <label for="email">Email</label>
                         <input type="email" class="form-control" value="{{ old('email') }}" name="email"
                             required placeholder="Email">
                         @error('email')
@@ -117,7 +117,7 @@
                         @enderror
                     </div>
                     <div class="form-group">
-                        <label for="price">Address</label>
+                        <label for="address">Address</label>
                         <input type="text" class="form-control" value="{{ old('address') }}" name="address"
                             required placeholder="Address">
                         @error('address')

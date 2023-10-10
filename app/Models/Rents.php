@@ -12,8 +12,17 @@ class Rents extends Model
     protected $table = 'rents';
 
     protected $fillable = [
-        'rent_name',
+        'start_date',
+        'end_date',
+        'terms',
+        'rent_type',
+        'payment_method',
+        'penalty',
+        'discount',
+        'amount',
         'status',
-        
+        'notes',
+        'property_id',
+        'tenant_id',
     ];
 }

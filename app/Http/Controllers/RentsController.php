@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Class\RentPayment;
+use App\Http\Requests\RentsRequestForm;
 use App\Models\Owner;
 use App\Models\Property;
 use App\Models\Rents;
@@ -15,6 +17,8 @@ class RentsController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny_rents', Rents::class);
+        
         return view('rents.index', [
             'title' => 'Rents Management',
             'rents' => Rents::latest()->paginate(10)
@@ -26,6 +30,8 @@ class RentsController extends Controller
      */
     public function create()
     {
+        $this->authorize('create_rents', Rents::class);
+        
         return view('rents.create', [
             'title' => 'Create Rents',
             'tenants' => Tenants::get(),
@@ -37,9 +43,25 @@ class RentsController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(RentsRequestForm $request)
     {
-        dd(2);
+        
+        $this->authorize('create_rents', Rents::class);
+
+        $validate = $request->validated();
+
+        $create = Rents::create($validate);
+        
+        if($create){
+
+            $rent_payment = new RentPayment();
+
+            $rent_payment->insert_payments($create->id, $request->terms, $request->start_date, $request->rent_type, $request->amount, $request->discount);
+
+            return back()->with('success', 'Rents has been created successfully!');
+        }
+
+        return back()->with('error', 'Creating rent is not successful!');
     }
 
     /**

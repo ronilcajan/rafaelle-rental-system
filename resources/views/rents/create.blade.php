@@ -9,7 +9,7 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">{{ $title }}</h4>
-            <form method="POST" action="{{ route('property.store') }}" id="propertyForm">
+            <form method="POST" action="{{ route('rents.store') }}" id="propertyForm">
                 @csrf
                 <div id="properties-form">
                     <h3>Property</h3>
@@ -22,7 +22,9 @@
                                         onchange="getProperties(this)" required>
                                         <option selected>Select</option>
                                         @foreach ($properties as $row)
-                                            <option value="{{ $row->id }}">{{ $row->property_name }}</option>
+                                            <option value="{{ $row->id }}"
+                                                {{ old('property_id') == $row->id ? 'selected' : '' }}>
+                                                {{ $row->property_name }}</option>
                                         @endforeach
                                     </select>
                                     @error('property_id')
@@ -43,7 +45,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Property Name</label>
-                                    <input type="text" id="property_name" class="form-control" readonly>
+                                    <input type="text" id="property_name" name="property_name" class="form-control"
+                                        value="{{ old('property_name') }}" readonly required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -81,7 +84,9 @@
                                         onchange="getTenant(this)" required>
                                         <option selected>Select</option>
                                         @foreach ($tenants as $row)
-                                            <option value="{{ $row->id }}">{{ $row->name }}</option>
+                                            <option value="{{ $row->id }}"
+                                                {{ old('tenant_id') == $row->id ? 'selected' : '' }}>{{ $row->name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     @error('tenant_id')
@@ -102,7 +107,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" id="name" class="form-control" readonly>
+                                    <input type="text" value="{{ old('tenant_name') }}" name="tenant_name"
+                                        id="name" class="form-control" readonly required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -133,9 +139,12 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Rent Type</label>
-                                    <select class="form-control" name="rent_type" id="" required>
-                                        <option value="monthly">Monthly</option>
-                                        <option value="yearly">Yearly</option>
+                                    <select class="form-control" name="rent_type" id="rent_type" required>
+                                        <option value="">Select Rent Type</option>
+                                        <option value="monthly" {{ old('rent_type') == 'monthly' ? 'selected' : '' }}>
+                                            Monthly</option>
+                                        <option value="yearly" {{ old('rent_type') == 'yearly' ? 'selected' : '' }}>
+                                            Yearly</option>
                                     </select>
                                     @error('rent_type')
                                         <small class="text-danger">{{ $message }}</small>
@@ -145,7 +154,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Terms</label>
-                                    <select class="form-control" name="terms" id="" required>
+                                    <select class="form-control" name="terms" id="terms" required>
                                         @for ($i = 1; $i <= 12; $i++)
                                             <option>{{ $i }}</option>
                                         @endfor
@@ -160,9 +169,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Start Date</label>
-                                    <input type="date" class="form-control" name="date_started"
+                                    <input type="date" class="form-control" name="start_date" id="start_date"
                                         value="{{ date('Y-m-d') }}" required>
-                                    @error('date_started')
+                                    @error('start_date')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
@@ -170,9 +179,9 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>End Date</label>
-                                    <input type="date" class="form-control" name="end_started" required
-                                        value="{{ old('end_started') }}">
-                                    @error('end_started')
+                                    <input type="date" class="form-control" name="end_date" required id="end_date"
+                                        value="{{ old('end_date') }}">
+                                    @error('end_date')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
@@ -194,8 +203,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Discount</label>
-                                    <input type="number" class="form-control" name="discount"
-                                        value="{{ old('discount') }}" required>
+                                    <input type="number" class="form-control" name="discount" id="discount"
+                                        value="{{ old('discount') ? old('discount') : 0 }}" required>
                                     @error('discount')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -206,8 +215,8 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Penalty</label>
-                                    <input type="number" class="form-control" name="penalty"
-                                        value="{{ old('penalty') }}" required>
+                                    <input type="number" class="form-control" name="penalty" id="penalty"
+                                        value="{{ old('penalty') ? old('penalty') : 0 }}" required>
                                     @error('penalty')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -216,7 +225,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Amount</label>
-                                    <input type="number" class="form-control" name="amount"
+                                    <input type="number" class="form-control" name="amount" id="amount"
                                         value="{{ old('amount') }}" required>
                                     @error('amount')
                                         <small class="text-danger">{{ $message }}</small>
@@ -224,9 +233,15 @@
                                 </div>
                             </div>
                         </div>
+
                     </section>
                     <h3>Finish</h3>
                     <section>
+                        <div class="form-group">
+                            <label>Total Amount </label>
+                            <input type="number" class="form-control" id="total_amount" name="total_amount"
+                                value="{{ old('total_amount') }}" readonly>
+                        </div>
                         <div class="form-group">
                             <label>Comments/Notes</label>
                             <textarea name="notes" class="form-control" value="{{ old('notes') }}" cols="30" rows="10"></textarea>
@@ -246,6 +261,7 @@
     <script src="{{ asset('vendors/select2/select2.min.js') }}"></script>
     <script src="{{ asset('vendors/jquery-steps/jquery.steps.min.js') }}"></script>
     <script src="{{ asset('vendors/jquery-validation/jquery.validate.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
 
 
     <script>
@@ -256,27 +272,17 @@
             transitionEffect: "slideLeft",
             autoFocus: true,
             onStepChanging: function(event, currentIndex, newIndex) {
-                // Validate the current step's input fields
-                var isValid = validateStep(currentIndex);
-
-                // Return true to allow navigation to the next step if validation succeeds, or false to prevent it
-                return isValid;
+                propertyForm.validate().settings.ignore = ":disabled,:hidden";
+                return propertyForm.valid();
             },
             onFinishing: function(event, currentIndex) {
-                // Validate the final step's input fields
-                var isValid = validateStep(currentIndex);
-
-                // Return true to allow form submission if validation succeeds, or false to prevent it
-                return isValid;
+                propertyForm.validate().settings.ignore = ":disabled";
+                return propertyForm.valid();
             },
             onFinished: function(event, currentIndex) {
-                console.log("onFinished callback executed");
-                propertyForm.serialize();
                 propertyForm.submit();
             }
         });
-
-
 
         $(".properties").select2({
             theme: "classic",
@@ -287,6 +293,50 @@
             theme: "classic",
             width: 'resolve',
         });
+
+        $(document).ready(function() {
+            const monthly_price = $('#monthly_price');
+            const yearly_price = $('#yearly_price');
+            const start_date = $('#start_date');
+            const terms = $('#terms');
+            const rent_type = $('#rent_type');
+            const discount = $('#discount');
+            const amount = $('#amount');
+            const end_started = $('#end_date');
+            const total_amount = $('#total_amount');
+
+            // Event handlers for input changes
+            rent_type.add(terms).add(start_date).add(discount).on('change', function() {
+                const selectedRentType = rent_type.val();
+                const selectedTerms = terms.val();
+                const selectedStartDate = start_date.val();
+                const selectedDiscount = discount.val();
+
+
+                changeRentType(selectedRentType, monthly_price.val(), yearly_price.val());
+                add_end_date(selectedTerms, selectedStartDate, selectedRentType);
+
+                const selectedAmount = amount.val();
+                calculateTotals(selectedAmount, selectedTerms, selectedDiscount);
+            });
+        });
+
+        function changeRentType(rent_type, monthly_price, yearly_price) {
+            const amount = (rent_type === 'monthly') ? monthly_price : (rent_type === 'yearly') ? yearly_price : '';
+            $('#amount').val(amount);
+        }
+
+        function add_end_date(terms, start_date, rent_type) {
+            const endDate = moment(start_date).add(terms, (rent_type === 'monthly') ? 'months' : 'years');
+            $('#end_date').val(endDate.format('YYYY-MM-DD'));
+        }
+
+        function calculateTotals(amount, terms, discount) {
+            const discounted = amount * (discount / 100);
+            const total = (amount - discounted) * terms;
+            $('#total_amount').val(total);
+        }
+
 
         function getProperties(that) {
             var id = $(that).val();
@@ -334,24 +384,6 @@
                     $('#address').val('');
                 }
             });
-        }
-
-        // Function to validate a step's input fields
-        function validateStep(stepIndex) {
-            var isValid = true;
-            var step = $("#properties-form").find("section").eq(stepIndex);
-
-            // Your validation logic here
-            // Example: Check if required fields are filled out
-            step.find("input.required").each(function() {
-                if ($(this).val().trim() === "") {
-                    isValid = false;
-                    // You can display an error message or highlight the field as invalid here
-                }
-            });
-
-            // Return the validation result
-            return isValid;
         }
     </script>
 @endpush

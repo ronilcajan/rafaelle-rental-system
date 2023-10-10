@@ -68,6 +68,12 @@
                             </label>
                         </div>
                     </div>
+                    <div class="flex justify-center mt-16 px-0 items-center justify-between">
+                        <div class="ml-4 text-center text-sm text-gray-500 dark:text-gray-400 sm:text-right sm:ml-0"
+                            style="font-size: 12px">
+                            Copyright @ 2023 | Developed by {{ config('app.developer') }}.
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>

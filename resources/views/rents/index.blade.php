@@ -22,10 +22,10 @@
                     <thead>
                         <tr>
                             <th>Property</th>
-                            <th>Location</th>
-                            <th>Owner</th>
-                            <th>Price</th>
-                            <th>Image</th>
+                            <th>Tenant</th>
+                            <th>Date</th>
+                            <th>End Date</th>
+                            <th>Type</th>
                             <th>Status</th>
                             <th class="hide-column">Action</th>
                         </tr>

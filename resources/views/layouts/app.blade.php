@@ -50,6 +50,15 @@
                 </div>
                 <!-- content-wrapper ends -->
                 <!-- partial:partials/_footer.html -->
+                <footer class="footer">
+                    <div class="text-center" style="font-size:12px">
+                        <span class="text-muted text-center text-sm-left d-block d-sm-inline-block">Copyright © 2023.
+                            {{ $settings['site_name']->value }}. All rights
+                            reserved. </span>
+                        <span class="float-none mt-1 mt-sm-0 text-center"> Developed & made with<i
+                                class="ti-heart text-danger mr-1 ml-1"></i></span> by {{ config('app.developer') }}
+                    </div>
+                </footer>
 
                 <!-- partial -->
             </div>
