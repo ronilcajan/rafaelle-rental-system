@@ -23,7 +23,7 @@ class UserFormRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email:filter|unique:users,email,'. ($this->user_id ? $this->user_id : 'NULL'),
+            'email' => 'required|email:filter|unique:users,email,'. (auth()->user()->id ? auth()->user()->id : 'NULL'),
             'contact_no' => 'required',
         ];
     }

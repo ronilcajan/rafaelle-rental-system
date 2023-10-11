@@ -15,7 +15,7 @@
         <div class="card-body">
             <h4 class="card-title">{{ $title }}</h4>
             <p class="card-description">
-                Add, edit, and remove properties.
+                Add, edit, and remove rents.
             </p>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -26,6 +26,8 @@
                             <th>Date</th>
                             <th>End Date</th>
                             <th>Type</th>
+                            <th>Amount</th>
+                            <th>Discount</th>
                             <th>Status</th>
                             <th class="hide-column">Action</th>
                         </tr>
@@ -33,43 +35,52 @@
                     <tbody>
                         @forelse ($rents as $row)
                             <tr>
-                                {{-- <td>{{ ucwords($row->property_name) }}</td>
-                                <td>{{ $row->location }}</td>
-                                <td>{{ $row->owner->name }}</td>
-                                <td>{{ number_format($row->price, 2) }}</td>
-                                <td> <img class="img-fluid"
-                                        src="{{ $row->image ? asset('storage/' . $row->image) : asset('images/logo.png') }}"
-                                        alt="user" width="40" height="40">
+                                <td>{{ ucwords($row->property->property_name) }}</td>
+                                <td>{{ ucwords($row->tenant->name) }}</td>
+                                <td>{{ date('Y-m-d', strtotime($row->start_date)) }}</td>
+                                <td>{{ date('Y-m-d', strtotime($row->end_date)) }}</td>
+                                <td>
+                                    <span class="badge badge-primary"> {{ ucwords($row->rent_type) }}</span>
                                 </td>
+
+                                <td>
+                                    {{ $row->discount > 0 ? number_format($row->amount - $row->amount * ($row->discount / 100), 2) : number_format($row->amount, 2) }}
+                                </td>
+                                <td>{{ $row->discount }} %</td>
                                 <td>
                                     @php
-                                        $badge = $row->status == 'vacant' ? 'primary' : ($row->status == 'sold' ? 'success' : 'info');
+                                        $badge = $row->status == 'active' ? 'success' : 'info';
                                     @endphp
-                                    <span class="badge badge-{{ $badge }}"> {{ $row->status }}</span>
+                                    <span class="badge badge-{{ $badge }}"> {{ ucwords($row->status) }}</span>
                                 </td>
                                 <td>
                                     <div class="row pl-3">
                                         <div class="col-auto p-0 mr-3">
-                                            <button type="button" onclick="getProperty({{ $row->id }})"
-                                                class="btn btn-link btn-fw btn-sm text-success p-0" data-toggle="modal"
-                                                data-target="#edit" title="Edit Property">
+                                            <a href="{{ route('rents.edit', $row->id) }}"
+                                                class="btn btn-link btn-fw btn-sm text-success p-0" title="Edit Rent">
                                                 <i class="ti-pencil"></i>
-                                            </button>
+                                            </a>
+                                        </div>
+                                        <div class="col-auto p-0 mr-3">
+                                            <a href="{{ route('rents.show', $row->id) }}"
+                                                class="btn btn-link btn-fw btn-sm text-info p-0" title="View Rent">
+                                                <i class="ti-layers-alt"></i>
+                                            </a>
                                         </div>
                                         @can('delete')
                                             <div class="col-auto p-0">
-                                                <form class="p-0 m-0" action="{{ route('property.destroy', $row->id) }}"
+                                                <form class="p-0 m-0" action="{{ route('rents.destroy', $row->id) }}"
                                                     method="post"
-                                                    onsubmit="return confirm('Do you wish to delete this property?');">
+                                                    onsubmit="return confirm('Do you wish to delete this rent?');">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-link btn-fw btn-sm text-danger p-0"><i
-                                                            class="ti-trash" title="Delete Property"></i></button>
+                                                            class="ti-trash" title="Delete Rent"></i></button>
                                                 </form>
                                             </div>
                                         @endcan
                                     </div>
-                                </td> --}}
+                                </td>
                             </tr>
                         @empty
                             <tr>
@@ -88,7 +99,6 @@
             </nav>
         </div>
     </div>
-    {{-- @include('property.modal') --}}
 @endsection
 
 @push('footer-script')

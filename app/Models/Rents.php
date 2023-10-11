@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Rents extends Model
 {
@@ -25,4 +26,15 @@ class Rents extends Model
         'property_id',
         'tenant_id',
     ];
+
+
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(Tenants::class);
+    }
+
+    public function property(): BelongsTo
+    {
+        return $this->belongsTo(Property::class);
+    }
 }

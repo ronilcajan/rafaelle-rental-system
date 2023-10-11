@@ -70,6 +70,9 @@ Route::middleware(['auth','role:rental-admin|rental-manager|rental-staff'])->gro
     Route::get('/rents', [RentsController::class, 'index'])->name('rents');
     Route::get('/rents/create', [RentsController::class, 'create'])->name('rents.create');
     Route::post('/rents/store', [RentsController::class, 'store'])->name('rents.store');
-
+    Route::get('/rents/{rent}/view', [RentsController::class, 'show'])->name('rents.show');
+    Route::get('/rents/{rent}/edit', [RentsController::class, 'edit'])->name('rents.edit');
+    Route::get('/rents/{rent}/update', [RentsController::class, 'update'])->name('rents.update');
+    Route::delete('/rents/{rent}/delete', [RentsController::class, 'destroy'])->name('rents.destroy');
 
 });

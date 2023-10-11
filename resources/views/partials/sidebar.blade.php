@@ -1,3 +1,6 @@
+@php
+    $url = Request::segment(1);
+@endphp
 <nav class="sidebar sidebar-offcanvas" id="sidebar">
     <ul class="nav">
         <li class="nav-item">
@@ -7,7 +10,7 @@
             </a>
         </li>
 
-        <li class="nav-item">
+        <li class="nav-item {{ $url == 'rents' ? 'active' : null }}">
             <a class="nav-link" href="{{ route('rents') }}">
                 <i class="ti-layers-alt menu-icon"></i>
                 <span class="menu-title">Rents</span>

@@ -30,4 +30,14 @@ class Property extends Model
     {
         return $this->belongsTo(Owner::class);
     }
+
+    public function rent(): HasOne
+    {
+        return $this->hasOne(Rents::class);
+    }
+
+    public function allRents(): HasMany
+    {
+        return $this->hasMany(Rents::class);
+    }
 }

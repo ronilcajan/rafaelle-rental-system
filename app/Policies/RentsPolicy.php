@@ -20,9 +20,9 @@ class RentsPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Rents $rents): bool
+    public function view_rents(User $user): bool
     {
-        //
+        return $user->hasRole('rental-admin|rental-manager');
     }
 
     /**
@@ -36,32 +36,16 @@ class RentsPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Rents $rents): bool
+    public function update_rents(User $user): bool
     {
-        //
+        return $user->hasRole('rental-admin|rental-manager');
     }
 
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Rents $rents): bool
+    public function delete_rents(User $user): bool
     {
-        //
-    }
-
-    /**
-     * Determine whether the user can restore the model.
-     */
-    public function restore(User $user, Rents $rents): bool
-    {
-        //
-    }
-
-    /**
-     * Determine whether the user can permanently delete the model.
-     */
-    public function forceDelete(User $user, Rents $rents): bool
-    {
-        //
+        return $user->hasRole('rental-admin');
     }
 }

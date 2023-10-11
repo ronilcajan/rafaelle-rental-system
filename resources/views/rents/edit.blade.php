@@ -8,8 +8,9 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">{{ $title }}</h4>
-            <form method="POST" action="{{ route('rents.store') }}" id="propertyForm">
+            <form action="{{ route('rents.update', $rent->id) }}" id="propertyForm">
                 @csrf
+                @method('GET')
                 <div id="properties-form">
                     <h3>Property</h3>
                     <section>
@@ -22,7 +23,7 @@
                                         <option selected>Select</option>
                                         @foreach ($properties as $row)
                                             <option value="{{ $row->id }}"
-                                                {{ old('property_id') == $row->id ? 'selected' : '' }}>
+                                                {{ $rent->property_id == $row->id ? 'selected' : '' }}>
                                                 {{ $row->property_name }}</option>
                                         @endforeach
                                     </select>
@@ -45,13 +46,14 @@
                                 <div class="form-group">
                                     <label>Property Name</label>
                                     <input type="text" id="property_name" name="property_name" class="form-control"
-                                        value="{{ old('property_name') }}" readonly required>
+                                        value="{{ $rent->property->property_name }}" readonly required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Price</label>
-                                    <input type="number" id="price" class="form-control" readonly>
+                                    <input type="number" id="price" class="form-control"
+                                        value="{{ $rent->property->price }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -59,13 +61,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Monthly Price</label>
-                                    <input type="number" id="monthly_price" class="form-control" readonly>
+                                    <input type="number" id="monthly_price" value="{{ $rent->property->monthly }}"
+                                        class="form-control" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Yearly Price</label>
-                                    <input type="number" id="yearly_price" class="form-control" readonly>
+                                    <input type="number" id="yearly_price" class="form-control"
+                                        value="{{ $rent->property->yearly }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -84,7 +88,7 @@
                                         <option selected>Select</option>
                                         @foreach ($tenants as $row)
                                             <option value="{{ $row->id }}"
-                                                {{ old('tenant_id') == $row->id ? 'selected' : '' }}>{{ $row->name }}
+                                                {{ $rent->tenant_id == $row->id ? 'selected' : '' }}>{{ $row->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -106,14 +110,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Name</label>
-                                    <input type="text" value="{{ old('tenant_name') }}" name="tenant_name"
+                                    <input type="text" value="{{ $rent->tenant->name }}" name="tenant_name"
                                         id="name" class="form-control" readonly required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Contact No</label>
-                                    <input type="number" id="contact" class="form-control" readonly>
+                                    <input type="number" id="contact" class="form-control"
+                                        value="{{ $rent->tenant->contact_no }}" readonly>
                                 </div>
                             </div>
                         </div>
@@ -121,13 +126,15 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Email</label>
-                                    <input type="text" id="email" class="form-control" readonly>
+                                    <input type="text" id="email" value="{{ $rent->tenant->email }}"
+                                        class="form-control" readonly>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Address</label>
-                                    <input type="text" id="address" class="form-control" readonly>
+                                    <input type="text" id="address" value="{{ $rent->tenant->address }}"
+                                        class="form-control" readonly>
                                 </div>
                             </div>
                         </div>
@@ -140,9 +147,9 @@
                                     <label>Rent Type</label>
                                     <select class="form-control" name="rent_type" id="rent_type" required>
                                         <option value="">Select Rent Type</option>
-                                        <option value="monthly" {{ old('rent_type') == 'monthly' ? 'selected' : '' }}>
+                                        <option value="monthly" {{ $rent->rent_type == 'monthly' ? 'selected' : '' }}>
                                             Monthly</option>
-                                        <option value="yearly" {{ old('rent_type') == 'yearly' ? 'selected' : '' }}>
+                                        <option value="yearly" {{ $rent->rent_type == 'yearly' ? 'selected' : '' }}>
                                             Yearly</option>
                                     </select>
                                     @error('rent_type')
@@ -155,7 +162,8 @@
                                     <label>Terms</label>
                                     <select class="form-control" name="terms" id="terms" required>
                                         @for ($i = 1; $i <= 12; $i++)
-                                            <option>{{ $i }}</option>
+                                            <option {{ $rent->terms == $i ? 'selected' : '' }}>
+                                                {{ $i }}</option>
                                         @endfor
                                     </select>
                                     @error('terms')
@@ -169,7 +177,7 @@
                                 <div class="form-group">
                                     <label>Start Date</label>
                                     <input type="date" class="form-control" name="start_date" id="start_date"
-                                        value="{{ date('Y-m-d') }}" required>
+                                        value="{{ $rent->start_date }}" required>
                                     @error('start_date')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -179,7 +187,7 @@
                                 <div class="form-group">
                                     <label>End Date</label>
                                     <input type="date" class="form-control" name="end_date" required id="end_date"
-                                        value="{{ old('end_date') }}">
+                                        value="{{ $rent->end_date }}">
                                     @error('end_date')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -191,8 +199,11 @@
                                 <div class="form-group">
                                     <label>Payment Method</label>
                                     <select class="form-control" name="payment_method" id="" required>
-                                        <option value="cash">Cash</option>
-                                        <option value="check">check</option>
+                                        <option value="cash" {{ $rent->payment_method == 'cash' ? 'selected' : '' }}>
+                                            Cash
+                                        </option>
+                                        <option value="check" {{ $rent->payment_method == 'check' ? 'selected' : '' }}>
+                                            check</option>
                                     </select>
                                     @error('payment_method')
                                         <small class="text-danger">{{ $message }}</small>
@@ -203,7 +214,7 @@
                                 <div class="form-group">
                                     <label>Discount(%)</label>
                                     <input type="number" class="form-control" name="discount" id="discount"
-                                        value="{{ old('discount') ? old('discount') : 0 }}" required>
+                                        value="{{ $rent->discount }}" required>
                                     @error('discount')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -215,7 +226,7 @@
                                 <div class="form-group">
                                     <label>Penalty(₱)</label>
                                     <input type="number" class="form-control" name="penalty" id="penalty"
-                                        value="{{ old('penalty') ? old('penalty') : 0 }}" required>
+                                        value="{{ $rent->penalty }}" required>
                                     @error('penalty')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -225,7 +236,7 @@
                                 <div class="form-group">
                                     <label>Amount(₱)</label>
                                     <input type="number" class="form-control" name="amount" id="amount"
-                                        value="{{ old('amount') }}" required>
+                                        value="{{ $rent->amount }}" required>
                                     @error('amount')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
@@ -238,12 +249,14 @@
                     <section>
                         <div class="form-group">
                             <label>Total Amount (₱)</label>
-                            <input type="number" class="form-control" id="total_amount" name="total_amount"
-                                value="{{ old('total_amount') }}" readonly>
+                            <input type="number" class="form-control" step="0.01" id="total_amount"
+                                name="total_amount"
+                                value="{{ $rent->discount > 0 ? $rent->terms * ($rent->amount - $rent->amount * ($rent->discount / 100)) : $rent->terms * $rent->amount }}"
+                                readonly>
                         </div>
                         <div class="form-group">
                             <label>Comments/Notes</label>
-                            <textarea name="notes" class="form-control" cols="30" rows="10">{{ old('notes') }}</textarea>
+                            <textarea name="notes" class="form-control" cols="30" rows="10">{{ $rent->notes }}</textarea>
                         </div>
 
                     </section>

@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Tenants extends Model
 {
@@ -18,4 +20,14 @@ class Tenants extends Model
         'address',
         'image'
     ];
+
+    public function rent(): HasOne
+    {
+        return $this->hasOne(Rents::class);
+    }
+
+    public function allRents(): HasMany
+    {
+        return $this->hasMany(Rents::class);
+    }
 }
