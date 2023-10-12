@@ -6,6 +6,7 @@ use App\Class\RentPayment;
 use App\Http\Requests\RentsRequestForm;
 use App\Models\Owner;
 use App\Models\Property;
+use App\Models\RentPayments;
 use App\Models\Rents;
 use App\Models\Tenants;
 use Illuminate\Http\Request;
@@ -80,6 +81,33 @@ class RentsController extends Controller
             'owners' => Owner::get(), 
             'rent' => $rent, 
         ]);
+    }
+
+    public function payment(Request $request)
+    {
+        $this->authorize('payment_rents', Rents::class);
+        $payment = $request->validate([
+            'date_paid' => 'required',
+            'amount' => 'required',
+        ]);
+
+        $payment['status'] = 1; // change status as settled
+
+        if($request->penalty > 0){
+            $payment['amount'] = $request->amount + $request->penalty;
+        }
+
+        $paid = RentPayments::find($request->payment_id)->update($payment);
+
+
+        if($paid){
+
+            
+            
+            return back()->with('success', 'Payments has been created successfully!');
+        }
+
+        return back()->with('error', 'Creating payment is not successful!');
     }
 
 

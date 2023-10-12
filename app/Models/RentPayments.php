@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class RentPayments extends Model
 {
@@ -16,5 +17,11 @@ class RentPayments extends Model
         'amount',
         'status',
         'due_date',
+        'date_paid',
     ];
+
+    public function tenant(): BelongsTo
+    {
+        return $this->belongsTo(Rents::class);
+    }
 }

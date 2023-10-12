@@ -11,12 +11,17 @@ class RentPayment{
         
         $type = str_replace("ly", "", $rent_type);//remove the ly in monthly and yearly
 
-        $discounted = $discount == 0 ? $amount : $amount * ($discount/100); //calculate the payment per month or year
+        $final_amount = $amount;
+
+        if($discount > 0){
+            $discounted =  $amount * ($discount/100);
+            $final_amount = $amount - $discounted; //calculate the payment per month or year
+        }
         
         for($i=0; $i < $terms; $i++){
             $data = [
                 'rent_id' => $rent_id,
-                'amount' => $discounted,
+                'amount' => $final_amount,
                 'due_date' => date('Y-m-d', strtotime('+'.($i+1).' '.$type, strtotime($date))),
                 'created_at' => now(),
                 'updated_at' => now(),
@@ -33,12 +38,17 @@ class RentPayment{
 
         $type = str_replace("ly", "", $rent_type); //remove the ly in monthly and yearly
 
-        $discounted = $discount == 0 ? $amount : $amount * ($discount/100); //calculate the payment per month or year
+        $final_amount = $amount;
 
+        if($discount > 0){
+            $discounted =  $amount * ($discount/100);
+            $final_amount = $amount - $discounted; //calculate the payment per month or year
+        }
+        
         for($i=0; $i < $terms; $i++){ 
             $data = [
                 'rent_id' => $rent_id,
-                'amount' => $discounted,
+                'amount' => $final_amount,
                 'due_date' => date('Y-m-d', strtotime('+'.($i+1).' '.$type, strtotime($date))),
                 'created_at' => now(),
                 'updated_at' => now(),

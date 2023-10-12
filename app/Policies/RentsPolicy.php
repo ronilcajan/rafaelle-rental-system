@@ -34,6 +34,15 @@ class RentsPolicy
     }
 
     /**
+     * Determine whether the user can create models.
+     */
+    public function payment_rents(User $user): bool
+    {
+        return $user->hasRole('rental-admin|rental-manager');
+    }
+
+
+    /**
      * Determine whether the user can update the model.
      */
     public function update_rents(User $user): bool
