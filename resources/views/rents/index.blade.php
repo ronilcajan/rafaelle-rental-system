@@ -55,13 +55,13 @@
                                 </td>
                                 <td>
                                     <div class="row pl-3">
-                                        <div class="col-auto p-0 mr-3">
+                                        <div class="col-auto p-0 mr-2">
                                             <a href="{{ route('rents.edit', $row->id) }}"
                                                 class="btn btn-link btn-fw btn-sm text-success p-0" title="Edit Rent">
                                                 <i class="ti-pencil"></i>
                                             </a>
                                         </div>
-                                        <div class="col-auto p-0 mr-3">
+                                        <div class="col-auto p-0 mr-2">
                                             <a href="{{ route('rents.show', $row->id) }}"
                                                 class="btn btn-link btn-fw btn-sm text-info p-0" title="View Rent">
                                                 <i class="ti-layers-alt"></i>

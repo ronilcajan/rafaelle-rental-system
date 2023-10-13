@@ -50,12 +50,14 @@ Route::middleware(['auth','role:rental-admin|rental-manager|rental-staff'])->gro
 
     Route::get('/owners', [OwnerController::class, 'index'])->name('owners');
     Route::get('/owners/{owner}', [OwnerController::class, 'find']);
+    Route::get('/owners/{owner}/view', [OwnerController::class, 'show'])->name('owners.view');
     Route::post('/owners/create', [OwnerController::class, 'store'])->name('owners.store');
     Route::post('/owners/update', [OwnerController::class, 'update'])->name('owners.update');
     Route::delete('/owners/{owner}/delete', [OwnerController::class, 'destroy'])->name('owners.destroy');
 
     Route::get('/property', [PropertyController::class, 'index'])->name('property');
     Route::get('/property/{property}', [PropertyController::class, 'find'])->name('property.find');
+    Route::get('/property/{property}/view', [PropertyController::class, 'show'])->name('property.view');
     Route::get('/property/all', [PropertyController::class, 'all'])->name('property.all');
     Route::post('/property/create', [PropertyController::class, 'store'])->name('property.store');
     Route::post('/property/update', [PropertyController::class, 'update'])->name('property.update');
@@ -63,6 +65,7 @@ Route::middleware(['auth','role:rental-admin|rental-manager|rental-staff'])->gro
 
     Route::get('/tenants', [TenantController::class, 'index'])->name('tenants');
     Route::get('/tenants/{tenant}', [TenantController::class, 'find']);
+    Route::get('/tenants/{tenant}/view', [TenantController::class, 'show'])->name('tenants.view');
     Route::post('/tenants/create', [TenantController::class, 'store'])->name('tenants.store');
     Route::post('/tenants/update', [TenantController::class, 'update'])->name('tenants.update');
     Route::delete('/tenants/{tenant}/delete', [TenantController::class, 'destroy'])->name('tenants.destroy');

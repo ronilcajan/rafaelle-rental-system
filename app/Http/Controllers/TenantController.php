@@ -46,7 +46,10 @@ class TenantController extends Controller
      */
     public function show(Tenants $tenant)
     {
-        //
+        return view('tenants.view', [
+            'title' => 'Tenants Details',
+            'tenant' => $tenant
+        ]);
     }
     
     public function find(Tenants $tenant)

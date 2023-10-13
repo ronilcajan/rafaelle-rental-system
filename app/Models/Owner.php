@@ -16,11 +16,11 @@ class Owner extends Model
         'name',
         'contact_no',
         'email',
-        'image'
+        'image',
     ];
 
     public function properties(): HasMany
     {
-        return $this->HasMany(Property::class);
+        return $this->HasMany(Property::class, 'owner_id');
     }
 }

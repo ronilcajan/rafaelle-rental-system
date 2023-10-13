@@ -40,12 +40,18 @@
                                 <td>{{ $row->address }}</td>
                                 <td>
                                     <div class="row pl-3">
-                                        <div class="col-auto p-0 mr-3">
+                                        <div class="col-auto p-0 mr-2">
                                             <button type="button" onclick="getTenant({{ $row->id }})"
                                                 class="btn btn-link btn-fw btn-sm text-success p-0" data-toggle="modal"
                                                 data-target="#edit" title="Edit Tenant">
                                                 <i class="ti-pencil"></i>
                                             </button>
+                                        </div>
+                                        <div class="col-auto p-0 mr-2">
+                                            <a href="{{ route('tenants.view', $row->id) }}"
+                                                class="btn btn-link btn-fw btn-sm text-info p-0" title="View Tenant">
+                                                <i class="ti-user"></i>
+                                            </a>
                                         </div>
                                         @can('delete')
                                             <div class="col-auto p-0">

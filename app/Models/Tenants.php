@@ -21,13 +21,8 @@ class Tenants extends Model
         'image'
     ];
 
-    public function rent(): HasOne
+    public function rents(): HasMany
     {
-        return $this->hasOne(Rents::class);
+        return $this->hasMany(Rents::class,'tenant_id');
     }
-
-    public function allRents(): HasMany
-    {
-        return $this->hasMany(Rents::class);
-    }
-}
+} 

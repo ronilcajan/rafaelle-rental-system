@@ -49,12 +49,18 @@
                                 </td>
                                 <td>
                                     <div class="row pl-3">
-                                        <div class="col-auto p-0 mr-3">
+                                        <div class="col-auto p-0 mr-2">
                                             <button type="button" onclick="getProperty({{ $row->id }})"
                                                 class="btn btn-link btn-fw btn-sm text-success p-0" data-toggle="modal"
                                                 data-target="#edit" title="Edit Property">
                                                 <i class="ti-pencil"></i>
                                             </button>
+                                        </div>
+                                        <div class="col-auto p-0 mr-2">
+                                            <a href="{{ route('property.view', $row->id) }}"
+                                                class="btn btn-link btn-fw btn-sm text-info p-0" title="View Property">
+                                                <i class="ti-home"></i>
+                                            </a>
                                         </div>
                                         @can('delete')
                                             <div class="col-auto p-0">

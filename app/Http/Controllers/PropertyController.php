@@ -48,15 +48,20 @@ class PropertyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Property $property)
     {
-        //
+        $this->authorize('view_property', Property::class);
+    
+        return view('property.view', [
+            'title' => 'Property Details',
+            'property' => $property,
+        ]);
     }
 
     public function find(Property $property)
     {
         return response()->json($property);
-    }
+    } 
 
 
     /**

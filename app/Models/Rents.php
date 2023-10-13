@@ -44,4 +44,4 @@ class Rents extends Model
     {
         return $this->hasMany(RentPayments::class,'rent_id');
     }
-}
+} 

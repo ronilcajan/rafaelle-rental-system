@@ -52,9 +52,14 @@ class OwnerController extends Controller
         return response()->json($owner);
     }
 
-    public function show(string $id)
+    public function show(Owner $owner)
     {
-        //
+        $this->authorize('viewAny_owners', Owner::class);
+        
+        return view('owner.view',[
+            'title' => 'Owner Details',
+            'owner' => $owner
+        ]);
     }
 
     /**
