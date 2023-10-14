@@ -36,6 +36,14 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" value="{{ old('address') }}" name="address" required
+                            placeholder="Address">
+                        @error('address')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label for="contact_no">Profile Picture</label>
                         <input type="file" class="form-control" name="image">
                         @error('image')
@@ -87,6 +95,14 @@
                         <input type="email" class="form-control" value="{{ old('email') }}" name="email"
                             id="email" required placeholder="Email">
                         @error('email')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Address</label>
+                        <input type="text" class="form-control" value="{{ old('address') }}" name="address"
+                            id="address" required placeholder="Address">
+                        @error('address')
                             <small class="text-danger">{{ $message }}</small>
                         @enderror
                     </div>

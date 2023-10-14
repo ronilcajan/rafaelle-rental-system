@@ -21,10 +21,10 @@ return new class extends Migration
             $table->decimal('penalty',10,2)->default(0);
             $table->integer('discount')->default(0);
             $table->decimal('amount',10,2)->default(0);
-            $table->string('status')->default('active');
+            $table->string('status')->default('new');
             $table->text('notes')->nullable();
             $table->foreignId('property_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('tenant_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('tenants_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

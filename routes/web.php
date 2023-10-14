@@ -10,6 +10,7 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RentsController;
+use App\Models\Rents;
 use Symfony\Component\HttpKernel\Profiler\Profile;
 
 /*
@@ -74,6 +75,8 @@ Route::middleware(['auth','role:rental-admin|rental-manager|rental-staff'])->gro
     Route::get('/rents/create', [RentsController::class, 'create'])->name('rents.create');
     Route::post('/rents/store', [RentsController::class, 'store'])->name('rents.store');
     Route::get('/rents/{rent}/view', [RentsController::class, 'show'])->name('rents.show');
+    Route::get('/rents/{rent}/contract', [RentsController::class, 'contract'])->name('rents.contract');
+    Route::get('/rents/{rent}/contract_pdf', [RentsController::class, 'contract_pdf'])->name('rents.contract_pdf');
     Route::post('/rents/payment', [RentsController::class, 'payment'])->name('rents.payment');
     Route::get('/rents/{rent}/edit', [RentsController::class, 'edit'])->name('rents.edit');
     Route::get('/rents/{rent}/update', [RentsController::class, 'update'])->name('rents.update');

@@ -23,6 +23,6 @@ class Tenants extends Model
 
     public function rents(): HasMany
     {
-        return $this->hasMany(Rents::class,'tenant_id');
+        return $this->hasMany(Rents::class);
     }
 } 

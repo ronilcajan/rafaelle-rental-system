@@ -36,7 +36,7 @@ class Property extends Model
         return $this->hasOne(Rents::class);
     }
 
-    public function allRents(): HasMany
+    public function properties(): HasMany
     {
         return $this->hasMany(Rents::class);
     }

@@ -23,16 +23,17 @@ class Rents extends Model
         'penalty',
         'discount',
         'amount',
+        'rent',
         'status',
         'notes',
         'property_id',
-        'tenant_id',
+        'tenants_id',
     ];
 
 
     public function tenant(): BelongsTo
     {
-        return $this->belongsTo(Tenants::class);
+        return $this->belongsTo(Tenants::class,'tenants_id');
     }
 
     public function property(): BelongsTo

@@ -66,7 +66,7 @@ function add_end_date(terms, start_date, rent_type) {
 function calculateTotals(amount, terms, discount) {
     const discounted = amount * (discount / 100);
     const total = (amount - discounted) * terms;
-    $('#total_amount').val(total);
+    $('#total_amount').val(total.toFixed(2));
 }
 
 

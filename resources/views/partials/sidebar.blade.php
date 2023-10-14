@@ -50,7 +50,7 @@
                 <span class="menu-title">Owners</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse {{ $url == 'owners' ? 'show' : null }}" id="owners">
+            <div class="collapse {{ $url == 'owner.  s' ? 'show' : null }}" id="owners">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('owners') }}"> List </a>
                     </li>

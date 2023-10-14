@@ -49,7 +49,7 @@
                                 <td>{{ $row->discount }} %</td>
                                 <td>
                                     @php
-                                        $badge = $row->status == 'active' ? 'success' : 'info';
+                                        $badge = $row->status == 'new' ? 'success' : 'info';
                                     @endphp
                                     <span class="badge badge-{{ $badge }}"> {{ ucwords($row->status) }}</span>
                                 </td>
@@ -59,6 +59,12 @@
                                             <a href="{{ route('rents.edit', $row->id) }}"
                                                 class="btn btn-link btn-fw btn-sm text-success p-0" title="Edit Rent">
                                                 <i class="ti-pencil"></i>
+                                            </a>
+                                        </div>
+                                        <div class="col-auto p-0 mr-2">
+                                            <a href="{{ route('rents.contract', $row->id) }}"
+                                                class="btn btn-link btn-fw btn-sm text-primary p-0" title="Lease Agreement">
+                                                <i class="ti-write"></i>
                                             </a>
                                         </div>
                                         <div class="col-auto p-0 mr-2">

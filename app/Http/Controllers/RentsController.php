@@ -10,6 +10,9 @@ use App\Models\RentPayments;
 use App\Models\Rents;
 use App\Models\Tenants;
 use Illuminate\Http\Request;
+use PDF;
+use App\Jobs\PDFGenerationJob;
+
 
 class RentsController extends Controller
 {
@@ -81,6 +84,26 @@ class RentsController extends Controller
             'owners' => Owner::get(), 
             'rent' => $rent, 
         ]);
+    }
+
+    public function contract(Rents $rent)
+    {
+        $this->authorize('view_rents', Rents::class);
+
+        return view('rents.contract', [
+            'title' => 'Lease Agreement',
+            'rent' => $rent, 
+        ]);
+    }
+
+    public function contract_pdf(Rents $rent)
+    {
+        $pdf = Pdf::loadView('rents.contract-pdf', ['rent' => $rent]);
+
+        // Define the file name
+        $fileName = 'contract-' . date('y-m-d-his') . '.pdf';
+
+        return $pdf->download($fileName);
     }
 
     public function payment(Request $request)

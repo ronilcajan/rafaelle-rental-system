@@ -60,7 +60,7 @@
                             </span>
                             <span class="float-right text-muted">
                                 @php
-                                    $badge = $rent->status == 'active' ? 'success' : 'info';
+                                    $badge = $rent->status == 'new' ? 'success' : 'info';
                                 @endphp
                                 <span class="badge badge-{{ $badge }}"> {{ ucwords($rent->status) }}
                                 </span>
@@ -126,6 +126,14 @@
                             </span>
                             <span class="float-right text-muted">
                                 {{ $rent->discount }} %
+                            </span>
+                        </p>
+                        <p class="clearfix">
+                            <span class="float-left">
+                                Deposit
+                            </span>
+                            <span class="float-right text-muted">
+                                {{ number_format($rent->deposit, 2) }}
                             </span>
                         </p>
                         <p class="clearfix">

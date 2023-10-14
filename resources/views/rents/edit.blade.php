@@ -243,17 +243,32 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Deposit(₱)</label>
+                                    <input type="number" class="form-control" name="deposit"
+                                        value="{{ $rent->deposit }}" required>
+                                    @error('deposit')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Payment (₱)</label>
+                                    @php
+                                        $payment = $rent->discount > 0 ? $rent->terms * ($rent->amount - $rent->amount * ($rent->discount / 100)) : $rent->terms * $rent->amount;
+                                    @endphp
+                                    <input type="number" class="form-control" step="0.01" id="total_amount"
+                                        name="total_amount" value="{{ number_format($payment, 2) }}" readonly>
+                                </div>
+                            </div>
+                        </div>
 
                     </section>
                     <h3>Finish</h3>
                     <section>
-                        <div class="form-group">
-                            <label>Total Amount (₱)</label>
-                            <input type="number" class="form-control" step="0.01" id="total_amount"
-                                name="total_amount"
-                                value="{{ $rent->discount > 0 ? $rent->terms * ($rent->amount - $rent->amount * ($rent->discount / 100)) : $rent->terms * $rent->amount }}"
-                                readonly>
-                        </div>
                         <div class="form-group">
                             <label>Comments/Notes</label>
                             <textarea name="notes" class="form-control" cols="30" rows="10">{{ $rent->notes }}</textarea>

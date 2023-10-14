@@ -79,7 +79,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse ($property->allRents as $row)
+                                @forelse ($property->properties as $row)
                                     <tr>
                                         <td>{{ $row->tenant->name }}</td>
                                         <td>{{ date('Y-m-d', strtotime($row->start_date)) }}</td>

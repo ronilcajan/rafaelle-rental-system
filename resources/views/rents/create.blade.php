@@ -233,14 +233,29 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Deposit(₱)</label>
+                                    <input type="number" class="form-control" name="deposit"
+                                        value="{{ old('deposit') }}" required>
+                                    @error('deposit')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Payment (₱)</label>
+                                    <input type="number" class="form-control" id="total_amount" name="total_amount"
+                                        value="{{ old('total_amount') }}" readonly>
+                                </div>
+                            </div>
+                        </div>
                     </section>
                     <h3>Finish</h3>
                     <section>
-                        <div class="form-group">
-                            <label>Total Amount (₱)</label>
-                            <input type="number" class="form-control" id="total_amount" name="total_amount"
-                                value="{{ old('total_amount') }}" readonly>
-                        </div>
+
                         <div class="form-group">
                             <label>Comments/Notes</label>
                             <textarea name="notes" class="form-control" cols="30" rows="10">{{ old('notes') }}</textarea>

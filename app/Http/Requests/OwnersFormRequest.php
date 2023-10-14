@@ -25,6 +25,7 @@ class OwnersFormRequest extends FormRequest
             'name' => 'required',
             'email' => 'required|email:filter',
             'contact_no' => 'required',
+            'address' => 'required',
         ];
     }
 }

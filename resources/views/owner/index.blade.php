@@ -102,6 +102,7 @@
                     $('#owner_id').val(response.id);
                     $('#name').val(response.name);;
                     $('#contact_no').val(response.contact_no);
+                    $('#address').val(response.address);
                     $('#email').val(response.email);
 
                 },
