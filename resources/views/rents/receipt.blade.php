@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Lease Agreement</title>
+    <title>Receipt</title>
 </head>
 
 <body>
@@ -30,26 +30,58 @@
     <table width="100%" style="margin-top:20px">
         <tr>
             <td style="background-color: #4B4AAC">
-                <h4 style="text-align: center; color:white; margin: 10px 0">LEASE AGREEMENT</h4>
+                <h4 style="text-align: center; color:white; margin: 10px 0">ACKNOWLEDGEMENT RECEIPT</h4>
             </td>
         </tr>
     </table>
-
     <div style="margin-top: 30px">
-        <p style="margin: 0;"><b>I. THE PARTIES:</b> This Lease Agreement("Agreement") made this
-            <u>{{ date('F d, Y', strtotime($rent->start_date)) }}</u> is between:
-        </p>
-        <p style="margin: 0;"><u>Landlord/Owner</u>: <u><b>{{ ucwords($rent->property->owner->name) }}</b></u> with a
-            mailing address
-            of
-            <u><b>{{ ucwords($rent->property->owner->address) }}</b></u> ("Landlord/Owner"), and
-        </p>
-        <p style="margin: 0;"><u>Tenant/Renter</u>: <u><b>{{ ucwords($rent->tenant->name) }}</b></u> with a mailing
-            address of
-            <u><b>{{ ucwords($rent->tenant->address) }}</b></u> ("Tenant/Renter").
+        <p>DATE PAID: <b><u>{{ date('F d, Y', strtotime($receipt->date_paid)) }}</u></b>.
         </p>
     </div>
     <div style="margin-top: 30px">
+        <p>Received from <b><u>{{ strtoupper($receipt->rent->tenant->name) }}</u></b> the amount of <b><u>PHP
+                    {{ number_format($receipt->amount, 2) }}</u></b> {{ $receipt->rent->payment_method }} representing
+            the payment due on <b><u>{{ date('F d, Y', strtotime($receipt->due_date)) }}</u></b>
+            for {{ $receipt->rent->rent_type }}
+            lease.
+        </p>
+
+    </div>
+
+    <div style="margin-top: 30px">
+        <p>This payment is for the lease of <b><u>{{ $receipt->rent->property->property_name }}</u></b> at
+            <b><u>{{ $receipt->rent->property->location }}</u></b>.
+        </p>
+
+    </div>
+    <table width="100%" style="margin-top: 40px;">
+        <tr>
+            <td>
+                <small>Received By:</small>
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p style="margin: 0; margin-top: 30px;"><u><b> _____________________</b></u>
+                </p>
+                <small>SIGNATURE OVER PRINTED NAME </small>
+            </td>
+            <td style="text-align: center">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <p style="margin: 0; margin-top: 30px;"><u><b> _____________________</b></u>
+                </p>
+                <small>DATE RECEIVED </small>
+            </td>
+            <td style="text-align: center">
+            </td>
+        </tr>
+    </table>
+    {{-- <div style="margin-top: 30px">
         <p style="margin: 0;"><b>II. THE PREMISES:</b> The Landlord/Owner agree to rent the following property to the
             Tenant/Renter
             for the Payment Terms in Section IV:
@@ -82,16 +114,16 @@
         <p style="margin: 0;"><u>{{ ucwords($rent->rent_type) }} Rent</u>. PHP
             <u><b>
                     {{-- calculate the payment --}}
-                    @php
-                        $amount = $rent->discount > 0 ? $rent->terms * ($rent->amount - $rent->amount * ($rent->discount / 100)) : $rent->terms * $rent->amount;
-                    @endphp
-                    {{ number_format($amount, 2) }}</b></u> due on the
-            <u><b>{{ $rent->rent_type == 'monthly' ? date('jS', strtotime($rent->start_date)) . ' of each month.' : date('F d', strtotime($rent->start_date)) . ' of year.' }}</b></u>
-        </p>
-        <p style="margin: 0;"><u>Security Deposit</u>. PHP
-            <u><b> {{ number_format($rent->deposit, 2) }}</b></u> due at signing of this Agreement.
-        </p>
-        <p style="margin: 0;"><u>Other</u>. ________________________________________.</p>
+    {{-- @php
+        $amount = $rent->discount > 0 ? $rent->terms * ($rent->amount - $rent->amount * ($rent->discount / 100)) : $rent->terms * $rent->amount;
+    @endphp
+    {{ number_format($amount, 2) }}</b></u> due on the
+    <u><b>{{ $rent->rent_type == 'monthly' ? date('jS', strtotime($rent->start_date)) . ' of each month.' : date('F d', strtotime($rent->start_date)) . ' of year.' }}</b></u>
+    </p>
+    <p style="margin: 0;"><u>Security Deposit</u>. PHP
+        <u><b> {{ number_format($rent->deposit, 2) }}</b></u> due at signing of this Agreement.
+    </p>
+    <p style="margin: 0;"><u>Other</u>. ________________________________________.</p>
     </div>
     <div style="margin-top: 30px">
         <p style="margin: 0;"><b>V. UTILITIES:</b> The Tenant/Renter shall be responsible for all utilities and services
@@ -127,12 +159,11 @@
                 <small>SIGNATURE OVER PRINTED NAME </small>
             </td>
         </tr>
-    </table>
+    </table> --}}
     <div style="margin-top: 40px">
         <small style="margin: 0; margin-top:50px">Date Generated: {{ date('F d, Y h:i:s A') }}</small><br>
         <small style="margin: 0">Generated Thru: {{ $settings['site_sys_name']->value }}</small>
     </div>
-
 </body>
 
 </html>

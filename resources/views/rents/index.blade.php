@@ -90,7 +90,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center">
+                                <td colspan="9" class="text-center">
                                     <i class="ti-dropbox" style="font-size: 100px; color:gray;"></i> <br> No record found!
                                 </td>
                             </tr>
@@ -109,9 +109,11 @@
 
 @push('footer-script')
     <script>
+        var currentURL = (window.location.href).split('?')[0];
+
         function getProperty(id) {
             $.get({
-                url: window.location.href + "/" + id,
+                url: currentURL + "/" + id,
                 success: function(response) {
 
                     console.log(response)

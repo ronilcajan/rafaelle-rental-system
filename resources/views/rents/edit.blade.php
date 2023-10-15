@@ -8,9 +8,9 @@
     <div class="card">
         <div class="card-body">
             <h4 class="card-title">{{ $title }}</h4>
-            <form action="{{ route('rents.update', $rent->id) }}" id="propertyForm">
+            <form action="{{ route('rents.update', $rent->id) }}" id="propertyForm" method="POST">
                 @csrf
-                @method('GET')
+                @method('PUT')
                 <div id="properties-form">
                     <h3>Property</h3>
                     <section>
@@ -83,12 +83,12 @@
                             <div class="col-md-10">
                                 <div class="form-group">
                                     <label>Select tenants here</label>
-                                    <select class="tenants w-100 form-control" name="tenant_id" style="width: 100%"
+                                    <select class="tenants w-100 form-control" name="tenants_id" style="width: 100%"
                                         onchange="getTenant(this)" required>
                                         <option selected>Select</option>
                                         @foreach ($tenants as $row)
                                             <option value="{{ $row->id }}"
-                                                {{ $rent->tenant_id == $row->id ? 'selected' : '' }}>{{ $row->name }}
+                                                {{ $rent->tenants_id == $row->id ? 'selected' : '' }}>{{ $row->name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -117,7 +117,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Contact No</label>
-                                    <input type="number" id="contact" class="form-control"
+                                    <input type="text" id="contact" class="form-control"
                                         value="{{ $rent->tenant->contact_no }}" readonly>
                                 </div>
                             </div>
@@ -256,12 +256,13 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Payment (₱)</label>
+                                    <label>Total Payment (₱)</label>
                                     @php
-                                        $payment = $rent->discount > 0 ? $rent->terms * ($rent->amount - $rent->amount * ($rent->discount / 100)) : $rent->terms * $rent->amount;
+                                        $discounted = $rent->discount > 0 ? $rent->amount * ($rent->discount / 100) : 0;
+                                        $payment = $rent->terms * ($rent->amount - $discounted);
                                     @endphp
-                                    <input type="number" class="form-control" step="0.01" id="total_amount"
-                                        name="total_amount" value="{{ number_format($payment, 2) }}" readonly>
+                                    <input type="text" class="form-control" id="total_amount" name="total_amount"
+                                        value="{{ number_format($payment, 2) }}" readonly>
                                 </div>
                             </div>
                         </div>

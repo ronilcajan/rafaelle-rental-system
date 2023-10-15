@@ -56,8 +56,9 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $data['role_id'] = $user->roles->pluck('id')[0];
+        $data['role_id'] = $user->roles->pluck('id')[0] ?? ''; 
         $data['user'] = $user;
+        
         return response()->json($data);
     }
 

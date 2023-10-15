@@ -29,11 +29,12 @@ class RentsRequestForm extends FormRequest
             'payment_method' => 'required',
             'penalty' => 'required',
             'discount' => 'required',
+            'deposit' => 'required',
             'amount' => 'required',
             'status' => '',
             'notes' => '',
             'property_id' => 'required',
-            'tenant_id' => 'required',
+            'tenants_id' => 'required',
         ];
     }
 }

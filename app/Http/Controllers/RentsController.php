@@ -49,7 +49,6 @@ class RentsController extends Controller
      */
     public function store(RentsRequestForm $request)
     {
-        
         $this->authorize('create_rents', Rents::class);
 
         $validate = $request->validated();
@@ -101,7 +100,17 @@ class RentsController extends Controller
         $pdf = Pdf::loadView('rents.contract-pdf', ['rent' => $rent]);
 
         // Define the file name
-        $fileName = 'contract-' . date('y-m-d-his') . '.pdf';
+        $fileName =  'contract-'.$rent->id . date('-y-m-d-his') . '.pdf';
+
+        return $pdf->download($fileName);
+    }
+
+    public function receipt(RentPayments $receipt)
+    {
+        $pdf = Pdf::loadView('rents.receipt', ['receipt' => $receipt]);
+
+        // Define the file name
+        $fileName =  'receipt-'.$receipt->id . date('-y-m-d-his') . '.pdf';
 
         return $pdf->download($fileName);
     }
@@ -125,8 +134,6 @@ class RentsController extends Controller
 
         if($paid){
 
-            
-            
             return back()->with('success', 'Payments has been created successfully!');
         }
 
@@ -169,10 +176,28 @@ class RentsController extends Controller
 
             $rent_payment->update_payments($rent->id, $request->terms, $request->start_date, $request->rent_type, $request->amount, $request->discount); //update rent payment
 
-            return back()->with('success', 'Rents has been created successfully!');
+            return back()->with('success', 'Rents has been updated successfully!');
         }
 
-        return back()->with('error', 'Creating rent is not successful!');
+        return back()->with('error', 'Updating rent is not successful!');
+    }
+
+    public function update_status(Request $request, Rents $rent)
+    {
+        $this->authorize('update_rents', Rents::class);
+
+        $update = $rent->update(['status' => $request->status]);
+        
+        if($update){
+
+            if($request->status == 'ended'){
+                Property::find($rent->property_id)->update(['status'=>'vacant']); 
+            }
+
+            return back()->with('success', 'Rents has been updated successfully!');
+        }
+
+        return back()->with('error', 'Updating rent is not successful!');
     }
 
     /**

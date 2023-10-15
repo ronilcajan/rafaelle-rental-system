@@ -43,7 +43,7 @@
                                 </td>
                                 <td>{{ $row->email }}</td>
                                 <td>{{ $row->contact_no }}</td>
-                                <td><span class="badge badge-primary"> {{ $row->roles[0]->name }}</span></td>
+                                <td><span class="badge badge-primary"> {{ $row->roles[0]->name ?? '' }}</span></td>
                                 <td>{{ date('Y-m-d h:i:s A', strtotime($row->created_at)) }}</td>
                                 <td>
                                     <div class="row pl-3 ">
@@ -104,9 +104,11 @@
 
 @push('footer-script')
     <script>
+        var currentURL = (window.location.href).split('?')[0];
+
         function getUser(id) {
             $.get({
-                url: window.location.href + "/" + id,
+                url: currentURL + "/" + id,
                 success: function(response) {
 
                     console.log(response.roles)

@@ -79,7 +79,7 @@
                             <div class="col-md-10">
                                 <div class="form-group">
                                     <label>Select tenants here</label>
-                                    <select class="tenants w-100 form-control" name="tenant_id" style="width: 100%"
+                                    <select class="tenants w-100 form-control" name="tenants_id" style="width: 100%"
                                         onchange="getTenant(this)" required>
                                         <option selected>Select</option>
                                         @foreach ($tenants as $row)
@@ -238,7 +238,7 @@
                                 <div class="form-group">
                                     <label>Deposit(₱)</label>
                                     <input type="number" class="form-control" name="deposit"
-                                        value="{{ old('deposit') }}" required>
+                                        value="{{ old('deposit') ? old('deposit') : 0 }}" required>
                                     @error('deposit')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror

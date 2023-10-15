@@ -66,8 +66,7 @@
                                 </span>
                                 <button type="button" class="btn btn-link btn-fw btn-sm text-primary"
                                     data-tooltip="tooltip" data-placement="bottom" title="" data-original-title="Pay"
-                                    data-target="#payment" data-toggle="modal"
-                                    onclick="location.href='{{ route('rents.create') }}'">
+                                    data-target="#status" data-toggle="modal">
                                     <i class="ti-pencil"></i>
                                 </button>
                             </span>
@@ -196,6 +195,16 @@
                                                         </button>
                                                     </div>
                                                 </div>
+                                            @else
+                                                <div class="row pl-3">
+                                                    <div class="col-auto p-0 mr-3">
+                                                        <a href="{{ route('rents.receipt', $row->id) }}"
+                                                            class="btn btn-link btn-fw btn-sm text-danger"
+                                                            data-tooltip="tooltip" data-placement="bottom" title="Receipt">
+                                                            <i class="ti-printer"></i>
+                                                        </a>
+                                                    </div>
+                                                </div>
                                             @endif
 
                                         </td>
@@ -203,7 +212,8 @@
                                 @empty
                                     <tr>
                                         <td colspan="5" class="text-center">
-                                            <i class="ti-dropbox" style="font-size: 100px; color:gray;"></i> <br> No record
+                                            <i class="ti-dropbox" style="font-size: 100px; color:gray;"></i> <br> No
+                                            record
                                             found!
                                         </td>
                                     </tr>

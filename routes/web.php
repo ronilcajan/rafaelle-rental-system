@@ -10,8 +10,8 @@ use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RentsController;
-use App\Models\Rents;
-use Symfony\Component\HttpKernel\Profiler\Profile;
+use App\Http\Controllers\SalesController;
+use App\Models\RentPayments;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +26,12 @@ use Symfony\Component\HttpKernel\Profiler\Profile;
 
 Route::get('/', function () {
     return redirect('login');
+});
+
+Route::get('/receipt', function () {
+    return view('rents.receipt',[
+        'receipt' => RentPayments::find(47)
+    ]);
 });
 
 Auth::routes([
@@ -77,9 +83,13 @@ Route::middleware(['auth','role:rental-admin|rental-manager|rental-staff'])->gro
     Route::get('/rents/{rent}/view', [RentsController::class, 'show'])->name('rents.show');
     Route::get('/rents/{rent}/contract', [RentsController::class, 'contract'])->name('rents.contract');
     Route::get('/rents/{rent}/contract_pdf', [RentsController::class, 'contract_pdf'])->name('rents.contract_pdf');
+    Route::get('/rents/{receipt}/receipt', [RentsController::class, 'receipt'])->name('rents.receipt');
     Route::post('/rents/payment', [RentsController::class, 'payment'])->name('rents.payment');
     Route::get('/rents/{rent}/edit', [RentsController::class, 'edit'])->name('rents.edit');
-    Route::get('/rents/{rent}/update', [RentsController::class, 'update'])->name('rents.update');
+    Route::put('/rents/{rent}', [RentsController::class, 'update'])->name('rents.update');
+    Route::put('/rents/{rent}/status', [RentsController::class, 'update_status'])->name('rents.update_status');
     Route::delete('/rents/{rent}/delete', [RentsController::class, 'destroy'])->name('rents.destroy');
+
+    Route::get('/sales', [SalesController::class, 'index'])->name('sales');
 
 });

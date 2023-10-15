@@ -31,6 +31,14 @@
                                 {{ $owner->email }}
                             </span>
                         </p>
+                        <p class="clearfix">
+                            <span class="float-left">
+                                Address
+                            </span>
+                            <span class="float-right text-muted">
+                                {{ $owner->address }}
+                            </span>
+                        </p>
                     </div>
                 </div>
             </div>

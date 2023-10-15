@@ -92,9 +92,11 @@
 
 @push('footer-script')
     <script>
+        var currentURL = (window.location.href).split('?')[0];
+
         function getTenant(id) {
             $.get({
-                url: window.location.href + "/" + id,
+                url: currentURL + "/" + id,
                 success: function(response) {
 
                     console.log(response)

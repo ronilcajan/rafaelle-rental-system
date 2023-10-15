@@ -95,16 +95,28 @@
                 <p><b>Contract Status:</b> <u><b> {{ strtoupper($rent->status) }}</b></u>.
                 </p>
             </div>
-            <div class="row mt-5">
-                <div class="col-md-6">
-                    <p>Landlord's/Owner's Signature:_____________________</p>
-                    <p>Printed Name: <u><b> {{ ucwords($rent->property->owner->name) }}</b></u></p>
-                </div>
-                <div class="col-md-6">
-                    <p>Tenant's/Renter's Signature:_____________________</p>
-                    <p>Printed Name: <u><b> {{ ucwords($rent->tenant->name) }}</b></u></p>
-                </div>
-            </div>
+            <table width="100%">
+                <tr>
+                    <td>
+                        <small>Landlord's/Owner's</small>
+                    </td>
+                    <td>
+                        <small>Tenant's/Renter's</small>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="text-align: center">
+                        <p style="margin: 0; margin-top: 50px;"><u><b>
+                                    {{ strtoupper($rent->property->owner->name) }}</b></u>
+                        </p>
+                        <small>SIGNATURE OVER PRINTED NAME </small>
+                    </td>
+                    <td style="text-align: center">
+                        <p style="margin: 0;margin-top: 50px;"><u><b>{{ strtoupper($rent->tenant->name) }}</b></u></p>
+                        <small>SIGNATURE OVER PRINTED NAME </small>
+                    </td>
+                </tr>
+            </table>
             <div style="margin-top: 40px">
                 <small style="margin: 0; margin-top:50px">Date Generated: {{ date('F d, Y h:i:s A') }}</small><br>
                 <small style="margin: 0">Generated Thru: {{ $settings['site_sys_name']->value }}</small>

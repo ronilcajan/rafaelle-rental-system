@@ -22,6 +22,7 @@ class Rents extends Model
         'payment_method',
         'penalty',
         'discount',
+        'deposit',
         'amount',
         'rent',
         'status',

@@ -50,9 +50,22 @@
                 <span class="menu-title">Owners</span>
                 <i class="menu-arrow"></i>
             </a>
-            <div class="collapse {{ $url == 'owner.  s' ? 'show' : null }}" id="owners">
+            <div class="collapse {{ $url == 'owners' ? 'show' : null }}" id="owners">
                 <ul class="nav flex-column sub-menu">
                     <li class="nav-item"> <a class="nav-link" href="{{ route('owners') }}"> List </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li class="nav-item {{ $url == 'sales' ? 'active' : null }}">
+            <a class="nav-link" data-toggle="collapse" href="#sales" aria-expanded="false" aria-controls="sales">
+                <i class="ti-money menu-icon"></i>
+                <span class="menu-title">Sales</span>
+                <i class="menu-arrow"></i>
+            </a>
+            <div class="collapse {{ $url == 'sales' ? 'show' : null }}" id="sales">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="{{ route('sales') }}"> List </a>
                     </li>
                 </ul>
             </div>
