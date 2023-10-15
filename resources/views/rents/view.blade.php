@@ -199,9 +199,9 @@
                                                 <div class="row pl-3">
                                                     <div class="col-auto p-0 mr-3">
                                                         <a href="{{ route('rents.receipt', $row->id) }}"
-                                                            class="btn btn-link btn-fw btn-sm text-danger"
+                                                            class="btn btn-link btn-fw btn-sm text-info"
                                                             data-tooltip="tooltip" data-placement="bottom" title="Receipt">
-                                                            <i class="ti-printer"></i>
+                                                            <i class="ti-import"></i>
                                                         </a>
                                                     </div>
                                                 </div>

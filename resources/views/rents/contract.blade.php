@@ -9,7 +9,7 @@
         <button type="button" class="btn btn-info btn-rounded btn-icon" data-tooltip="tooltip"
             onclick="location.href='{{ route('rents.contract_pdf', $rent->id) }}'" data-placement="bottom"
             data-original-title="Print delivery receipt">
-            <i class="ti-download"></i>
+            <i class="ti-import"></i>
         </button>
     </div>
     <div class="card" id="printArea">

@@ -111,6 +111,8 @@
                     $('#property_name').val(response.property_name);
                     $('#location').val(response.location);
                     $('#price').val(response.price);
+                    $('#monthly').val(response.monthly);
+                    $('#yearly').val(response.yearly);
                     $('#status').val(response.status);
                 },
                 error: function(xhr) {

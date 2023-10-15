@@ -2,17 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Class\RentPayment;
-use App\Http\Requests\RentsRequestForm;
 use App\Models\Owner;
-use App\Models\Property;
-use App\Models\RentPayments;
 use App\Models\Rents;
+use App\Models\Sales;
 use App\Models\Tenants;
+use App\Models\Property;
+use App\Class\RentPayment;
+use App\Models\RentPayments;
 use Illuminate\Http\Request;
-use PDF;
-use App\Jobs\PDFGenerationJob;
-
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Http\Requests\RentsRequestForm;
 
 class RentsController extends Controller
 {
@@ -118,6 +117,7 @@ class RentsController extends Controller
     public function payment(Request $request)
     {
         $this->authorize('payment_rents', Rents::class);
+
         $payment = $request->validate([
             'date_paid' => 'required',
             'amount' => 'required',
@@ -126,13 +126,27 @@ class RentsController extends Controller
         $payment['status'] = 1; // change status as settled
 
         if($request->penalty > 0){
-            $payment['amount'] = $request->amount + $request->penalty;
+            $payment['amount'] = $request->amount + $request->penalty; //add penalty here
         }
 
         $paid = RentPayments::find($request->payment_id)->update($payment);
 
-
         if($paid){
+
+            $rent = RentPayments::find($request->payment_id);
+
+            $sales = [
+                'status' => true,
+                'amount' => $payment['amount'],
+                'property_id' =>  $rent->rent->property->id,
+                'tenant_id' => $rent->rent->tenant->id,
+                'rent_payment_id' => $request->payment_id,
+                'transaction_date' => now(),
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]; 
+
+            Sales::create($sales);
 
             return back()->with('success', 'Payments has been created successfully!');
         }

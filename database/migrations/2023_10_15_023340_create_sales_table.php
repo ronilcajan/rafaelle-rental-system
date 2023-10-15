@@ -13,10 +13,10 @@ return new class extends Migration
     {
         Schema::create('sales', function (Blueprint $table) {
             $table->id();
-            $table->boolean('status')->default(false);
+            $table->boolean('status')->default(true);
             $table->string('payment_method')->default('cash');
             $table->decimal('amount')->nullable();
-            $table->datetime('transaction_date')->nullable();
+            $table->date('transaction_date')->nullable();
             $table->string('notes')->nullable();
             $table->foreignId('property_id')->nullable()->constrained()->cascadeOnDelete();
             $table->foreignId('tenant_id')->nullable()->constrained()->cascadeOnDelete();

@@ -271,6 +271,13 @@
                     <h3>Finish</h3>
                     <section>
                         <div class="form-group">
+                            <label>Rent Status</label>
+                            <select name="status" id="status" class="form-control">
+                                <option value="new" {{ $rent->status == 'new' ? 'selected' : '' }}>New</option>
+                                <option value="renew" {{ $rent->status == 'renew' ? 'selected' : '' }}>Renew</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <label>Comments/Notes</label>
                             <textarea name="notes" class="form-control" cols="30" rows="10">{{ $rent->notes }}</textarea>
                         </div>

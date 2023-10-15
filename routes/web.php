@@ -91,5 +91,9 @@ Route::middleware(['auth','role:rental-admin|rental-manager|rental-staff'])->gro
     Route::delete('/rents/{rent}/delete', [RentsController::class, 'destroy'])->name('rents.destroy');
 
     Route::get('/sales', [SalesController::class, 'index'])->name('sales');
-
+    Route::post('/sales/create', [SalesController::class, 'store'])->name('sales.store');
+    Route::post('/sales/update', [SalesController::class, 'update'])->name('sales.update');
+    Route::get('/sales/{sales}', [SalesController::class, 'find']);
+    Route::get('/sales/{sales}/receipt', [SalesController::class, 'receipt'])->name('sales.receipt');
+    Route::delete('/sales/{sales}/delete', [SalesController::class, 'destroy'])->name('sales.destroy');
 });

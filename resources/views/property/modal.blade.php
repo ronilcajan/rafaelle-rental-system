@@ -128,6 +128,22 @@
                         @enderror
                     </div>
                     <div class="form-group">
+                        <label for="monthly">Monthly Price</label>
+                        <input type="number" class="form-control" value="{{ old('monthly') }}" name="monthly"
+                            required placeholder="Monthly Price" id="monthly">
+                        @error('monthly')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="yearly">Yearly Price</label>
+                        <input type="number" class="form-control" value="{{ old('yearly') }}" name="yearly"
+                            required placeholder="Price" id="yearly">
+                        @error('yearly')
+                            <small class="text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                    <div class="form-group">
                         <label>Status</label>
                         <select name="status" class="form-control" id="status">
                             <option value="vacant">vacant</option>
