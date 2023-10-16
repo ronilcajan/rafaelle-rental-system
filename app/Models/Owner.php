@@ -24,4 +24,13 @@ class Owner extends Model
     {
         return $this->HasMany(Property::class, 'owner_id');
     }
+
+    public function scopeFilter($query, array $filter){
+        if(!empty($filter['search'])){
+            $query->where('name', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('contact_no', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('email', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('address', 'like', '%' . $filter['search'] . '%');
+        }
+    }
 }

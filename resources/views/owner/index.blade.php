@@ -7,16 +7,33 @@
                 data-target="#create" data-placement="bottom" title="" data-original-title="Create Owner">
                 <i class="ti-plus"></i>
             </button>
+            <button type="button" class="btn btn-info btn-rounded btn-icon" data-toggle="modal"
+                onclick="location.href='{{ url()->current() }}'" title="Reload">
+                <i class="ti-reload"></i>
+            </button>
         @endif
 
 
     </div>
     <div class="card">
         <div class="card-body">
-            <h4 class="card-title">{{ $title }}</h4>
-            <p class="card-description">
-                Add, edit, and remove owners.
-            </p>
+            <div class="row">
+                <div class="col-md-8">
+                    <h4 class="card-title">{{ $title }}</h4>
+                    <p class="card-description">
+                        Add, edit, and remove owners.
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <form class="d-flex justify-content-between">
+                        <label class="sr-only" for="inlineFormInputName2">Name</label>
+                        <input type="text" class="form-control mb-2 mr-sm-2" name="search" id="inlineFormInputName2"
+                            placeholder="Please enter to search"
+                            value="{{ isset($_GET['search']) ? $_GET['search'] : '' }}">
+                        <button type="submit" class="btn btn-primary mb-2">Search</button>
+                    </form>
+                </div>
+            </div>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>

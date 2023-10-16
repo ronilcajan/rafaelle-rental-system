@@ -45,4 +45,22 @@ class Property extends Model
     {
         return $this->hasMany(Sales::class);
     }
+
+    public function scopeFilter($query, array $filter){
+        if(!empty($filter['search'])){
+            $query->with('owner')
+                    ->where(function ($query) use ($filter) {
+                        $query->whereHas('owner', function ($q) use ($filter) {
+                            $q->where('name', 'like', '%' . $filter['search'] . '%');
+                        });
+                    })
+                ->orWhere('property_name', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('location', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('price', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('monthly', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('yearly', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('status', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('price', 'like', '%' . $filter['search'] . '%');
+        }
+    }
 }

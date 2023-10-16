@@ -15,7 +15,7 @@ class TenantController extends Controller
     {
         return view('tenants.index', [
             'title' => 'Tenants Management',
-            'tenants' => Tenants::latest()->paginate(10)
+            'tenants' => Tenants::latest()->filter(request(['search']))->paginate(10)
         ]);
     }
 

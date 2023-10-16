@@ -19,7 +19,7 @@ class PropertyController extends Controller
         return view('property.index', [
             'title' => 'Property Management',
             'owners' => Owner::get(),
-            'properties' => Property::latest()->paginate(10)
+            'properties' => Property::latest()->filter(request(['search']))->paginate(10)
         ]);
     }
 
@@ -35,7 +35,7 @@ class PropertyController extends Controller
         if($request->has('image')){
             $validate['image'] = $request->file('image')->store('property', 'public');
         }
-
+ 
         $create = Property::create($validate);
 
         if($create){

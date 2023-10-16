@@ -17,7 +17,7 @@ class OwnerController extends Controller
         
         return view('owner.index',[
             'title' => 'Owner Management',
-            'owners' => Owner::latest()->paginate(10)
+            'owners' => Owner::latest()->filter(request(['search']))->paginate(10)
         ]);
     }
 

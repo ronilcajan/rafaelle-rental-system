@@ -113,7 +113,7 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Contact No</label>
-                                    <input type="number" id="contact" class="form-control" readonly>
+                                    <input type="text" id="contact" class="form-control" readonly>
                                 </div>
                             </div>
                         </div>

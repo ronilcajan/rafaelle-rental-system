@@ -45,5 +45,29 @@ class Rents extends Model
     {
         return $this->hasMany(RentPayments::class,'rent_id');
     }
+
+    public function scopeFilter($query, array $filter){
+        if(!empty($filter['search'])){
+            $query->with('property:id,property_name','tenant:id,name')
+                ->where(function ($query) use ($filter) {
+                    $query->whereHas('property', function ($q) use ($filter) {
+                        $q->where('property_name', 'like', '%' . $filter['search'] . '%');
+                    })->orWhereHas('tenant', function ($q) use ($filter) {
+                        $q->where('name', 'like', '%' . $filter['search'] . '%');
+                    });
+                })
+                ->orWhere('start_date', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('end_date', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('rent_type', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('discount', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('status', 'like', '%' . $filter['search'] . '%')
+                ->orWhere('amount', 'like', '%' . $filter['search'] . '%');
+        }
+
+        if(!empty($filter['from_date'])){
+            $query->with('property:id,property_name','tenant:id,name','payment')
+            ->whereBetween('transaction_date', [$filter['from_date'], $filter['to_date']]);
+        }
+    }
     
 } 
