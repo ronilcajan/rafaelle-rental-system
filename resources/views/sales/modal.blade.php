@@ -178,12 +178,12 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>From Date</label>
-                        <input type="date" class="form-control" name="from_date"
+                        <input type="date" class="form-control" name="from_date" id="from_date"
                             value="{{ isset($_GET['from_date']) ? $_GET['from_date'] : date('Y-m-d') }}">
                     </div>
                     <div class="form-group">
                         <label>To Date</label>
-                        <input type="date" class="form-control" name="to_date"
+                        <input type="date" class="form-control" name="to_date" id="to_date"
                             value="{{ isset($_GET['to_date']) ? $_GET['to_date'] : date('Y-m-d') }}">
                     </div>
                 </div>

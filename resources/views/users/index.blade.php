@@ -18,7 +18,7 @@
                 Add, edit, reset and remove users.
             </p>
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-borderless">
                     <thead>
                         <tr>
                             <th>Name</th>

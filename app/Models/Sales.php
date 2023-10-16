@@ -62,6 +62,34 @@ class Sales extends Model
             ->whereBetween('transaction_date', [$filter['from_date'], $filter['to_date']]);
         }
     }
+
+
+    public static function get_this_year_sales(){
+        $monthlyData = [];
+
+        for ($month = 1; $month <= 12; $month++) {
+            $query = static::selectRaw('SUM(amount) AS total_amount')
+                ->whereMonth('transaction_date',$month)
+                ->whereYear('transaction_date', date('Y'));
+            
+            $monthlyData[] = $query->pluck('total_amount')->first() ?? 0;
+        }
+        return $monthlyData;
+    }
+    
+    public static function get_previous_year_sales(){
+        $monthlyData = [];
+
+        for ($month = 1; $month <= 12; $month++) {
+            $query = static::selectRaw('SUM(amount) AS total_amount')
+                ->whereMonth('transaction_date', $month)
+                ->whereYear('transaction_date', date('Y')-1);
+               
+                
+            $monthlyData[] = $query->pluck('total_amount')->first() ?? 0;
+        }
+        return $monthlyData;
+    }
     
     
 }

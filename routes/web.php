@@ -42,6 +42,11 @@ Auth::routes([
 
 Route::middleware(['auth','role:rental-admin|rental-manager|rental-staff'])->group(function(){
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard/sales/data', [DashboardController::class, 'sales_chart']);
+    Route::get('/dashboard/properties/data', [DashboardController::class, 'properties_chart']);
+    Route::get('/dashboard/{payment}', [DashboardController::class, 'find_payment']);
+  
+    
     Route::get('/settings', [SettingsController::class, 'index'])->name('settings');
     Route::post('/settings/update', [SettingsController::class, 'update'])->name('settings.update');
     Route::get('/profile', [ProfileController::class, 'index'])->name('profile');

@@ -8,7 +8,7 @@
             style="font-size:18px">{{ $settings['site_name']->value }}</a>
         <a class="navbar-brand brand-logo-mini" href="{{ url('/') }}"><img
                 src="{{ $settings['site_logo']->value ? asset('storage/' . $settings['site_logo']->value) : asset('images/logo.png') }}"
-                alt="logo" /></a>
+                alt="logo" id="logo" /></a>
     </div>
     <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
         <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">

@@ -155,7 +155,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Payment Details</h4>
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped table-borderless">
                             <thead>
                                 <tr>
                                     <th>Month</th>

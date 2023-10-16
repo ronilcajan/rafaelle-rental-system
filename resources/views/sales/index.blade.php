@@ -36,20 +36,23 @@
         </div>
     </div>
     <div class="text-right mb-2">
-        @if (auth()->user()->hasRole('rental-admin'))
-            <button type="button" class="btn btn-warning btn-rounded btn-icon" data-toggle="modal" data-tooltip="tooltip"
-                data-target="#filter_date" title="Filter Date">
-                <i class="ti-filter"></i>
-            </button>
-            <button type="button" class="btn btn-info btn-rounded btn-icon" data-toggle="modal"
-                onclick="location.href='{{ url()->current() }}'" title="Reload">
-                <i class="ti-reload"></i>
-            </button>
-            <button type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal" data-tooltip="tooltip"
-                data-target="#create" title="Create Sales">
-                <i class="ti-plus"></i>
-            </button>
-        @endif
+
+        <button type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal" data-tooltip="tooltip"
+            data-target="#filter_date" title="Filter Date">
+            <i class="ti-filter"></i>
+        </button>
+        <button type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal"
+            onclick="location.href='{{ url()->current() }}'" title="Reload">
+            <i class="ti-reload"></i>
+        </button>
+        <button type="button" class="btn btn-primary btn-rounded btn-icon" onclick="tableToPDF('salesTable')"
+            data-tooltip="tooltip" title="Filter Date">
+            <i class="ti-import"></i>
+        </button>
+        <button type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal" data-tooltip="tooltip"
+            data-target="#create" title="Create Sales">
+            <i class="ti-plus"></i>
+        </button>
     </div>
     <div class="card">
         <div class="card-body">
@@ -73,7 +76,7 @@
 
 
             <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table table-striped table-borderless" id="salesTable">
                     <thead>
                         <tr>
                             <th>Date</th>
@@ -85,6 +88,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $total = 0;
+                        @endphp
                         @forelse ($sales as $row)
                             <tr>
                                 <td>{{ date('Y-m-d', strtotime($row->transaction_date)) }}</td>
@@ -92,8 +98,8 @@
                                 </td>
                                 <td>{{ $row->property->property_name ?? $row->payment->rent->property->property_name }}</td>
                                 <td>
-                                    <span class="badge badge-{{ $row->status ? 'primary' : 'warning' }}">
-                                        {{ $row->status ? 'done' : 'pending' }}</span>
+                                    <span class="badge badge-{{ $row->status ? 'success' : 'warning' }}">
+                                        {{ $row->status ? 'completed' : 'pending' }}</span>
                                 </td>
                                 <td>{{ number_format($row->amount, 2) }}</td>
                                 <td>
@@ -132,6 +138,9 @@
                                     </div>
                                 </td>
                             </tr>
+                            @php
+                                $total += $row->amount;
+                            @endphp
                         @empty
                             <tr>
                                 <td colspan="6" class="text-center">
@@ -142,6 +151,12 @@
                             </tr>
                         @endforelse
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="4" class="text-right">Total: </th>
+                            <th>P {{ number_format($total, 2) }}</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
             <nav class="mt-5">
@@ -155,6 +170,7 @@
 @endsection
 
 @push('footer-script')
+    <script src="{{ asset('script/tableToPDF.js') }}"></script>r
     <script>
         var currentURL = (window.location.href).split('?')[0];
 
