@@ -174,7 +174,7 @@
         <div class="card-body">
             <div class="d-flex justify-content-between">
                 <p class="card-title">Sales Report</p>
-                <a href="#" class="text-info">View all</a>
+                <a href="{{ route('sales') }}" class="text-info">View all</a>
             </div>
             <div id="sales-legend" class="chartjs-legend mt-4 mb-2"></div>
             <canvas id="sales-chart"></canvas>

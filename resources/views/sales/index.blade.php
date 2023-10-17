@@ -21,7 +21,7 @@
         <div class="col-md-3 mb-4 stretch-card transparent">
             <div class="card card-dark-blue">
                 <div class="card-body">
-                    <p class="mb-4">Yearly Bookings</p>
+                    <p class="mb-4">Yearly Sales</p>
                     <p class="fs-30 mb-2">P {{ number_format($yearly_sales, 2) }}</p>
                 </div>
             </div>
