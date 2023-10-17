@@ -100,6 +100,8 @@
         });
     </script>
 
+    <script src="{{ asset('script/tableToPDF.js') }}"></script>
+
     @stack('footer-script')
 
 </body>

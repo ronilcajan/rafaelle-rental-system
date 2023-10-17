@@ -3,13 +3,21 @@
 @section('content')
     <div class="text-right mb-2">
         @if (auth()->user()->hasRole('rental-admin'))
+            <button type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal" data-tooltip="tooltip"
+                data-target="#filter_date" title="Filter Date">
+                <i class="ti-filter"></i>
+            </button>
             <button type="button" class="btn btn-primary btn-rounded btn-icon" data-tooltip="tooltip" data-placement="bottom"
                 title="" data-original-title="Create Rents" onclick="location.href='{{ route('rents.create') }}'">
                 <i class="ti-plus"></i>
             </button>
-            <button type="button" class="btn btn-info btn-rounded btn-icon" data-toggle="modal"
+            <button type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal"
                 onclick="location.href='{{ url()->current() }}'" title="Reload">
                 <i class="ti-reload"></i>
+            </button>
+            <button type="button" class="btn btn-primary btn-rounded btn-icon" onclick="tableToPDF('rentTable')"
+                data-tooltip="tooltip" title="Download Table">
+                <i class="ti-import"></i>
             </button>
         @endif
 
@@ -35,21 +43,24 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-striped table-borderless">
+                <table class="table table-striped table-borderless" id="rentTable">
                     <thead>
                         <tr>
                             <th>Property</th>
                             <th>Tenant</th>
-                            <th>Date</th>
+                            <th>Start Date</th>
                             <th>End Date</th>
                             <th>Type</th>
-                            <th>Amount</th>
                             <th>Discount</th>
                             <th>Status</th>
+                            <th>Amount</th>
                             <th class="hide-column">Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @php
+                            $total = 0;
+                        @endphp
                         @forelse ($rents as $row)
                             <tr>
                                 <td>{{ ucwords($row->property->property_name) }}</td>
@@ -60,15 +71,20 @@
                                     <span class="badge badge-primary"> {{ ucwords($row->rent_type) }}</span>
                                 </td>
 
-                                <td>
-                                    {{ $row->discount > 0 ? number_format($row->amount - $row->amount * ($row->discount / 100), 2) : number_format($row->amount, 2) }}
-                                </td>
+
                                 <td>{{ $row->discount }} %</td>
                                 <td>
                                     @php
                                         $badge = $row->status == 'new' ? 'success' : 'info';
                                     @endphp
                                     <span class="badge badge-{{ $badge }}"> {{ ucwords($row->status) }}</span>
+                                </td>
+
+                                <td>
+                                    @php
+                                        $amount = $row->discount > 0 ? $row->amount - $row->amount * ($row->discount / 100) : $row->amount;
+                                    @endphp
+                                    {{ number_format($amount, 2) }}
                                 </td>
                                 <td>
                                     <div class="row pl-3">
@@ -105,6 +121,9 @@
                                     </div>
                                 </td>
                             </tr>
+                            @php
+                                $total += $amount;
+                            @endphp
                         @empty
                             <tr>
                                 <td colspan="9" class="text-center">
@@ -113,6 +132,12 @@
                             </tr>
                         @endforelse
                     </tbody>
+                    <tfoot>
+                        <tr>
+                            <th class="text-right" colspan="7">Total:</th>
+                            <th class="text-left">P {{ number_format($total, 2) }}</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
             <nav class="mt-5">
@@ -120,6 +145,37 @@
                     {{ $rents->links() }}
                 </ul>
             </nav>
+        </div>
+    </div>
+    <div class="modal fade" id="filter_date" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-3"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel-3">Filter By Start Date</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label>Start Date</label>
+                            <input type="date" class="form-control" name="from_date" id="from_date"
+                                value="{{ isset($_GET['from_date']) ? $_GET['from_date'] : date('Y-m-d') }}">
+                        </div>
+                        <div class="form-group">
+                            <label>End Date</label>
+                            <input type="date" class="form-control" name="to_date" id="to_date"
+                                value="{{ isset($_GET['to_date']) ? $_GET['to_date'] : date('Y-m-d') }}">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Filter</button>
+                        <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 @endsection

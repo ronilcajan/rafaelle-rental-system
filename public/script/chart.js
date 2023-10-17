@@ -4,7 +4,7 @@ if ($("#north-america-chart").length) {
       datasets: [{
           data: [],
           backgroundColor: [
-             "#4B49AC","#FFC100", "#248AFD",
+             "#4B49AC", "#248AFD","#FFC100",
           ],
           borderColor: "rgba(0,0,0,0)"
         }
@@ -32,10 +32,10 @@ if ($("#north-america-chart").length) {
           text.push('<div class="d-flex justify-content-between mx-4 mx-xl-5 mt-3"><div class="d-flex align-items-center"><div class="mr-3" style="width:20px; height:20px; border-radius: 50%; background-color: ' + chart.data.datasets[0].backgroundColor[0] + '"></div><p class="mb-0">Sold Properties</p></div>');
           text.push('<p class="mb-0">'+ chart.data.datasets[0].data[0] +'</p>');
           text.push('</div>');
-          text.push('<div class="d-flex justify-content-between mx-4 mx-xl-5 mt-3"><div class="d-flex align-items-center"><div class="mr-3" style="width:20px; height:20px; border-radius: 50%; background-color: ' + chart.data.datasets[0].backgroundColor[1] + '"></div><p class="mb-0">Rented Properties</p></div>');
+          text.push('<div class="d-flex justify-content-between mx-4 mx-xl-5 mt-3"><div class="d-flex align-items-center"><div class="mr-3" style="width:20px; height:20px; border-radius: 50%; background-color: ' + chart.data.datasets[0].backgroundColor[2] + '"></div><p class="mb-0">Rented Properties</p></div>');
           text.push('<p class="mb-0">'+ chart.data.datasets[0].data[1] +'</p>');
           text.push('</div>');
-          text.push('<div class="d-flex justify-content-between mx-4 mx-xl-5 mt-3"><div class="d-flex align-items-center"><div class="mr-3" style="width:20px; height:20px; border-radius: 50%; background-color: ' + chart.data.datasets[0].backgroundColor[2] + '"></div><p class="mb-0">Vacant Properties</p></div>');
+          text.push('<div class="d-flex justify-content-between mx-4 mx-xl-5 mt-3"><div class="d-flex align-items-center"><div class="mr-3" style="width:20px; height:20px; border-radius: 50%; background-color: ' + chart.data.datasets[0].backgroundColor[1] + '"></div><p class="mb-0">Vacant Properties</p></div>');
           text.push('<p class="mb-0">'+ chart.data.datasets[0].data[2] +'</p>');
           text.push('</div>');
         text.push('</div>');

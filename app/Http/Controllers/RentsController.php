@@ -24,7 +24,7 @@ class RentsController extends Controller
         
         return view('rents.index', [
             'title' => 'Rents Management',
-            'rents' => Rents::with(['property','tenant'])->latest()->filter(request(['search']))->paginate(10)
+            'rents' => Rents::with(['property','tenant'])->latest()->filter(request(['search','from_date', 'to_date']))->paginate(10)
         ]);
     }
 

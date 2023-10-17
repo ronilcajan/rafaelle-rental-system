@@ -65,8 +65,8 @@ class Rents extends Model
         }
 
         if(!empty($filter['from_date'])){
-            $query->with('property:id,property_name','tenant:id,name','payment')
-            ->whereBetween('transaction_date', [$filter['from_date'], $filter['to_date']]);
+            $query->with('property:id,property_name','tenant:id,name')
+            ->whereBetween('start_date', [$filter['from_date'], $filter['to_date']]);
         }
     }
     

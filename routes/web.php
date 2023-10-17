@@ -1,17 +1,18 @@
 <?php
 
+use App\Models\RentPayments;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\RentsController;
+use App\Http\Controllers\SalesController;
 use App\Http\Controllers\TenantController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\SettingsController;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\RentsController;
-use App\Http\Controllers\SalesController;
-use App\Models\RentPayments;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,4 +102,7 @@ Route::middleware(['auth','role:rental-admin|rental-manager|rental-staff'])->gro
     Route::get('/sales/{sales}', [SalesController::class, 'find']);
     Route::get('/sales/{sales}/receipt', [SalesController::class, 'receipt'])->name('sales.receipt');
     Route::delete('/sales/{sales}/delete', [SalesController::class, 'destroy'])->name('sales.destroy');
+
+    Route::get('/payments', [PaymentController::class, 'index'])->name('payments');
+    Route::get('/payments/{payment}', [PaymentController::class, 'find_payment']);
 });

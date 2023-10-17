@@ -11,8 +11,7 @@
                 <div class="col-12 col-xl-8 mb-4 mb-xl-0">
                     <h3 class="font-weight-bold">Welcome to {{ $settings['site_sys_name']->value }},
                         {{ auth()->user()->name }}!</h3>
-                    <h6 class="font-weight-normal mb-0">All systems are running smoothly! You have <span
-                            class="text-primary">3 unread alerts!</span></h6>
+                    <h6 class="font-weight-normal mb-0">All systems are running smoothly!
                 </div>
                 <div class="col-12 col-xl-4">
                     <div class="justify-content-end d-flex">
@@ -34,6 +33,9 @@
                     <img src="images/dashboard/people.svg" alt="people">
                     <div class="weather-info">
                         <div class="d-flex">
+                            <div>
+                                <h2 class="mb-0 font-weight-normal"><i class="icon-sun mr-2"></i></h2>
+                            </div>
                             <div class="ml-2">
                                 <h4 class="location font-weight-normal">{{ $settings['site_address']->value }}</h4>
                                 <h6 class="font-weight-normal">Philippines</h6>
@@ -181,7 +183,7 @@
     @include('admin.modal')
 @endsection
 @push('footer-script')
-    <script src="{{ asset('script/dashboard.js') }}"></script>
+    <script src="{{ asset('script/chart.js') }}"></script>
     <script src="{{ asset('js/Chart.roundedBarCharts.js') }}"></script>
     <script>
         var currentURL = (window.location.href).split('?')[0];
@@ -226,7 +228,7 @@
                 success: function(response) {
 
                     console.log(response)
-                    northAmericaChart.data.datasets[0].data = [response.sold, response.rented, response.vacant];
+                    northAmericaChart.data.datasets[0].data = [response.sold, response.vacant, response.rented];
                     northAmericaChart.update(); // Update the chart
                     document.getElementById('north-america-legend').innerHTML = northAmericaChart
                         .generateLegend();

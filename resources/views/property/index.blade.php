@@ -7,9 +7,13 @@
                 data-target="#create" data-placement="bottom" title="" data-original-title="Create Owner">
                 <i class="ti-plus"></i>
             </button>
-            <button type="button" class="btn btn-info btn-rounded btn-icon" data-toggle="modal"
+            <button type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal"
                 onclick="location.href='{{ url()->current() }}'" title="Reload">
                 <i class="ti-reload"></i>
+            </button>
+            <button type="button" class="btn btn-primary btn-rounded btn-icon" onclick="tableToPDF('propertyTable')"
+                data-tooltip="tooltip" title="Download Table">
+                <i class="ti-import"></i>
             </button>
         @endif
 
@@ -35,15 +39,16 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-striped table-borderless">
+                <table class="table table-striped table-borderless" id="propertyTable">
                     <thead>
                         <tr>
                             <th>Property</th>
                             <th>Location</th>
                             <th>Owner</th>
                             <th>Price</th>
-                            <th>Image</th>
                             <th>Status</th>
+                            <th class="hide-column">Image</th>
+
                             <th class="hide-column">Action</th>
                         </tr>
                     </thead>
@@ -53,17 +58,19 @@
                                 <td>{{ ucwords($row->property_name) }}</td>
                                 <td>{{ $row->location }}</td>
                                 <td>{{ $row->owner->name }}</td>
+
                                 <td>{{ number_format($row->price, 2) }}</td>
-                                <td> <img class="img-fluid"
-                                        src="{{ $row->image ? asset('storage/' . $row->image) : asset('images/logo.png') }}"
-                                        alt="user" width="40" height="40">
-                                </td>
                                 <td>
                                     @php
                                         $badge = $row->status == 'vacant' ? 'primary' : ($row->status == 'sold' ? 'success' : 'info');
                                     @endphp
                                     <span class="badge badge-{{ $badge }}"> {{ $row->status }}</span>
                                 </td>
+                                <td> <img class="img-fluid"
+                                        src="{{ $row->image ? asset('storage/' . $row->image) : asset('images/logo.png') }}"
+                                        alt="user" width="40" height="40">
+                                </td>
+
                                 <td>
                                     <div class="row pl-3">
                                         <div class="col-auto p-0 mr-2">

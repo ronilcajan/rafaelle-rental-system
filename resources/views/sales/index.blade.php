@@ -6,7 +6,7 @@
             <div class="card card-dark-blue">
                 <div class="card-body">
                     <p class="mb-4">Today’s Sales</p>
-                    <p class="fs-30 mb-2">P {{ $today_sales }}</p>
+                    <p class="fs-30 mb-2">P {{ number_format($today_sales, 2) }}</p>
                 </div>
             </div>
         </div>
@@ -14,7 +14,7 @@
             <div class="card card-dark-blue">
                 <div class="card-body">
                     <p class="mb-4">Monthly Sales</p>
-                    <p class="fs-30 mb-2">P {{ $monthly_sales }}</p>
+                    <p class="fs-30 mb-2">P {{ number_format($monthly_sales, 2) }}</p>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
             <div class="card card-dark-blue">
                 <div class="card-body">
                     <p class="mb-4">Yearly Bookings</p>
-                    <p class="fs-30 mb-2">P {{ $yearly_sales }}</p>
+                    <p class="fs-30 mb-2">P {{ number_format($yearly_sales, 2) }}</p>
                 </div>
             </div>
         </div>
@@ -30,7 +30,7 @@
             <div class="card card-dark-blue">
                 <div class="card-body">
                     <p class="mb-4">Total Sales</p>
-                    <p class="fs-30 mb-2">P {{ $total_sales }}</p>
+                    <p class="fs-30 mb-2">P {{ number_format($total_sales, 2) }}</p>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
             <i class="ti-reload"></i>
         </button>
         <button type="button" class="btn btn-primary btn-rounded btn-icon" onclick="tableToPDF('salesTable')"
-            data-tooltip="tooltip" title="Filter Date">
+            data-tooltip="tooltip" title="Download Table">
             <i class="ti-import"></i>
         </button>
         <button type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal" data-tooltip="tooltip"
@@ -170,7 +170,6 @@
 @endsection
 
 @push('footer-script')
-    <script src="{{ asset('script/tableToPDF.js') }}"></script>r
     <script>
         var currentURL = (window.location.href).split('?')[0];
 

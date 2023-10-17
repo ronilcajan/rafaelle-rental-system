@@ -17,6 +17,13 @@
             </a>
         </li>
 
+        <li class="nav-item {{ $url == 'payments' ? 'active' : null }}">
+            <a class="nav-link" href="{{ route('payments') }}">
+                <i class="ti-wallet menu-icon"></i>
+                <span class="menu-title">Payments</span>
+            </a>
+        </li>
+
         <li class="nav-item {{ $url == 'property' ? 'active' : null }}">
             <a class="nav-link" data-toggle="collapse" href="#property" aria-expanded="false" aria-controls="property">
                 <i class="ti-home menu-icon"></i>

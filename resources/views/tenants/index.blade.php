@@ -7,9 +7,13 @@
                 data-target="#create" data-placement="bottom" title="" data-original-title="Create Owner">
                 <i class="ti-plus"></i>
             </button>
-            <button type="button" class="btn btn-info btn-rounded btn-icon" data-toggle="modal"
+            <button type="button" class="btn btn-primary btn-rounded btn-icon" data-toggle="modal"
                 onclick="location.href='{{ url()->current() }}'" title="Reload">
                 <i class="ti-reload"></i>
+            </button>
+            <button type="button" class="btn btn-primary btn-rounded btn-icon" onclick="tableToPDF('tenantTable')"
+                data-tooltip="tooltip" title="Download Table">
+                <i class="ti-import"></i>
             </button>
         @endif
 
@@ -35,7 +39,7 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-striped table-borderless">
+                <table class="table table-striped table-borderless" id="tenantTable">
                     <thead>
                         <tr>
                             <th>Name</th>
