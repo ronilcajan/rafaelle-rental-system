@@ -246,7 +246,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label>Payment (₱)</label>
+                                    <label>Total Payment (₱)</label>
                                     <input type="number" class="form-control" id="total_amount" name="total_amount"
                                         value="{{ old('total_amount') }}" readonly>
                                 </div>
