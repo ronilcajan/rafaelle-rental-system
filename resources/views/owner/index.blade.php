@@ -56,7 +56,7 @@
                                     <img style="border-radius: 100%"
                                         src="{{ $row->image ? asset('storage/' . $row->image) : asset('images/logo.png') }}"
                                         alt="user" width="40" height="40">
-                                    {{ ucwords($row->name) }}
+                                    <a href="{{ route('owners.view', $row->id) }}">{{ ucwords($row->name) }}</a>
                                 </td>
                                 <td>{{ $row->email }}</td>
                                 <td>{{ $row->contact_no }}</td>
