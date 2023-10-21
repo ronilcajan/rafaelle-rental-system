@@ -51,7 +51,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Rent History</h4>
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped table-borderless">
                             <thead>
                                 <tr>
                                     <th>Start Date</th>
@@ -94,7 +94,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Payments History</h4>
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped table-borderless">
                             <thead>
                                 <tr>
                                     <th>Date</th>
