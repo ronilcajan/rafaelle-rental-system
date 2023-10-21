@@ -169,6 +169,7 @@
                             <tbody>
                                 @forelse ($rent->payments as $row)
                                     <tr>
+
                                         <td>{{ date('F', strtotime($row->due_date)) }}</td>
                                         <td>{{ date('Y-m-d', strtotime($row->due_date)) }}</td>
                                         <td>{{ number_format($row->amount, 2) }}</td>

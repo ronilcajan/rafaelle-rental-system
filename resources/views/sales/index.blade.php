@@ -80,6 +80,7 @@
                     <thead>
                         <tr>
                             <th>Date</th>
+                            <th>Covered Month</th>
                             <th>Tenant</th>
                             <th>Property</th>
                             <th>Status</th>
@@ -94,9 +95,14 @@
                         @forelse ($sales as $row)
                             <tr>
                                 <td>{{ date('Y-m-d', strtotime($row->transaction_date)) }}</td>
-                                <td>{{ $row->tenant->name ?? $row->payment->rent->tenant->name }}
+                                <td>{{ date('F', strtotime($row->payment->due_date)) ?? '' }}</td>
+                                <td><a
+                                        href="{{ route('tenants.view', $row->tenant->id ?? $row->payment->rent->tenant->id) }}">
+                                        {{ $row->tenant->name ?? $row->payment->rent->tenant->name }}
+                                    </a>
                                 </td>
-                                <td>{{ $row->property->property_name ?? $row->payment->rent->property->property_name }}</td>
+                                <td>{{ $row->property->property_name ?? $row->payment->rent->property->property_name }}
+                                </td>
                                 <td>
                                     <span class="badge badge-{{ $row->status ? 'success' : 'warning' }}">
                                         {{ $row->status ? 'completed' : 'pending' }}</span>
@@ -153,7 +159,7 @@
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="4" class="text-right">Total: </th>
+                            <th colspan="5" class="text-right">Total: </th>
                             <th>P {{ number_format($total, 2) }}</th>
                         </tr>
                     </tfoot>

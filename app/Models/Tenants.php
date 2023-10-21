@@ -28,8 +28,10 @@ class Tenants extends Model
 
     public function sales(): HasMany
     {
-        return $this->hasMany(Sales::class);
+        return $this->hasMany(Sales::class, 'tenant_id');
     }
+
+    
 
     public function scopeFilter($query, array $filter){
         if(!empty($filter['search'])){

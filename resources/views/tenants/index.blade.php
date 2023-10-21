@@ -55,7 +55,8 @@
                                 <td><img class="img-fluid"
                                         src="{{ $row->image ? asset('storage/' . $row->image) : asset('images/logo.png') }}"
                                         alt="user" width="40" height="40">
-                                    {{ ucwords($row->name) }}</td>
+                                    <a href="{{ route('tenants.view', $row->id) }}">{{ ucwords($row->name) }} </a>
+                                </td>
                                 <td>{{ $row->contact_no }}</td>
                                 <td>{{ $row->email }}</td>
                                 <td>{{ $row->address }}</td>

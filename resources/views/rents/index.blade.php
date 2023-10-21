@@ -63,8 +63,13 @@
                         @endphp
                         @forelse ($rents as $row)
                             <tr>
-                                <td>{{ ucwords($row->property->property_name) }}</td>
-                                <td>{{ ucwords($row->tenant->name) }}</td>
+                                <td><a
+                                        href="{{ route('property.view', $row->property->id) }}">{{ ucwords($row->property->property_name) }}</a>
+                                </td>
+                                <td><a href="{{ route('tenants.view', $row->tenant->id) }}">
+                                        {{ ucwords($row->tenant->name) }}
+                                    </a>
+                                </td>
                                 <td>{{ date('Y-m-d', strtotime($row->start_date)) }}</td>
                                 <td>{{ date('Y-m-d', strtotime($row->end_date)) }}</td>
                                 <td>

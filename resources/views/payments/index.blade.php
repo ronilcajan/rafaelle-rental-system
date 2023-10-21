@@ -44,6 +44,7 @@
                         <tr>
                             <th>Tenant</th>
                             <th>Due Date</th>
+                            <th>Covered Month</th>
                             <th>Amount</th>
                             <th>Date Paid</th>
                             <th>Status</th>
@@ -53,8 +54,11 @@
                     <tbody>
                         @forelse ($payments as $row)
                             <tr>
-                                <td>{{ $row->rent->tenant->name }}</td>
+                                <td><a
+                                        href="{{ route('tenants.view', $row->rent->tenant->id) }}">{{ $row->rent->tenant->name }}</a>
+                                </td>
                                 <td>{{ date('d M Y', strtotime($row->due_date)) }}</td>
+                                <td>{{ date('F', strtotime($row->due_date)) ?? '' }}</td>
                                 <td class="font-weight-bold">P {{ $row->amount }}</td>
                                 <td>{{ $row->status ? date('Y-m-d', strtotime($row->date_paid)) : '' }}</td>
                                 <td>

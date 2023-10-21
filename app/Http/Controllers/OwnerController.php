@@ -55,10 +55,21 @@ class OwnerController extends Controller
     public function show(Owner $owner)
     {
         $this->authorize('viewAny_owners', Owner::class);
-        
+
+        $rents = collect();
+
+        if ($owner) {
+            $properties = $owner->properties; // Retrieve the owner's properties
+
+            foreach ($properties as $property) {
+                $rents = $rents->merge($property->rents);
+            }
+        }
+
         return view('owner.view',[
             'title' => 'Owner Details',
-            'owner' => $owner
+            'owner' => $owner,
+            'rents' => $rents,
         ]);
     }
 

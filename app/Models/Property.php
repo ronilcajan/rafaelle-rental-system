@@ -36,6 +36,11 @@ class Property extends Model
         return $this->hasOne(Rents::class);
     }
 
+    public function rents()
+    {
+        return $this->hasMany(Rents::class);
+    }
+
     public function properties(): HasMany
     {
         return $this->hasMany(Rents::class);

@@ -55,9 +55,10 @@
                     <tbody>
                         @forelse ($properties as $row)
                             <tr>
-                                <td>{{ ucwords($row->property_name) }}</td>
+                                <td><a href="{{ route('property.view', $row->id) }}">{{ ucwords($row->property_name) }}</a>
+                                </td>
                                 <td>{{ $row->location }}</td>
-                                <td>{{ $row->owner->name }}</td>
+                                <td><a href="{{ route('owners.view', $row->owner->id) }}">{{ $row->owner->name }}</a></td>
 
                                 <td>{{ number_format($row->price, 2) }}</td>
                                 <td>

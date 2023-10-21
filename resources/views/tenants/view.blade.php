@@ -56,8 +56,8 @@
                                 <tr>
                                     <th>Start Date</th>
                                     <th>End Date</th>
-                                    <th>Amount</th>
                                     <th>Status</th>
+                                    <th>Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -65,7 +65,6 @@
                                     <tr>
                                         <td>{{ date('Y-m-d', strtotime($row->start_date)) }}</td>
                                         <td>{{ date('Y-m-d', strtotime($row->end_date)) }}</td>
-                                        <td>{{ number_format($row->amount, 2) }}</td>
                                         <td>
                                             @php
                                                 $badge = $row->status == 'active' ? 'success' : 'info';
@@ -74,10 +73,53 @@
                                                 {{ $row->status ? 'settled' : 'Unsettled' }}
                                             </span>
                                         </td>
+                                        <td>{{ number_format($row->amount, 2) }}</td>
                                     </tr>
                                 @empty
                                     <tr>
                                         <td colspan="4" class="text-center">
+                                            <i class="ti-dropbox" style="font-size: 100px; color:gray;"></i> <br> No
+                                            record
+                                            found!
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-4">
+
+                <div class="card-body">
+                    <h4 class="card-title">Payments History</h4>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Covered Month</th>
+                                    <th>Property</th>
+                                    <th>Status</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @forelse ($tenant->sales as $row)
+                                    <tr>
+                                        <td>{{ date('Y-m-d', strtotime($row->transaction_date)) }}</td>
+                                        <td>{{ date('F', strtotime($row->payment->due_date)) ?? '' }}</td>
+                                        <td>{{ $row->property->property_name ?? $row->payment->rent->property->property_name }}
+                                        </td>
+                                        <td>
+                                            <span class="badge badge-{{ $row->status ? 'success' : 'warning' }}">
+                                                {{ $row->status ? 'completed' : 'pending' }}</span>
+                                        </td>
+                                        <td>{{ number_format($row->amount, 2) }}</td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="6" class="text-center">
                                             <i class="ti-dropbox" style="font-size: 100px; color:gray;"></i> <br> No
                                             record
                                             found!

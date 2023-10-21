@@ -91,12 +91,12 @@ if ($("#sales-chart").length) {
     data: {
       labels: ["Jan", "Feb", "Mar", "Apr", "May","Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"],
       datasets: [{
-          label: 'Current Year Sales',
+          label: 'Current Year',
           data: [],
           backgroundColor: '#98BDFF'
         },
         {
-          label: 'Previous Year Sales',
+          label: 'Previous Year',
           data: [],
           backgroundColor: '#4B49AC'
         }

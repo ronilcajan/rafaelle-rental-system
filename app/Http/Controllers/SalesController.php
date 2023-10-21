@@ -16,6 +16,9 @@ class SalesController extends Controller
      */
     public function index()
     {
+
+        $this->authorize('viewAny_sales', Sales::class);
+        
         $sales = Sales::with('property:id,property_name','tenant:id,name','payment')
             ->select('*','sales.id as id')
             ->filter(request(['search','from_date','to_date']))
@@ -41,6 +44,8 @@ class SalesController extends Controller
      */
     public function store(SalesFormRequest $request)
     {
+        $this->authorize('create_sales', Sales::class);
+        
         $validate = $request->validated();
 
         $create = Sales::create($validate);
@@ -65,6 +70,9 @@ class SalesController extends Controller
 
     public function receipt(Sales $sales)
     {
+
+        $this->authorize('view_sales', $sales);
+        
         $pdf = Pdf::loadView('sales.receipt', ['receipt' => $sales]);
 
         // Define the file name
@@ -84,9 +92,20 @@ class SalesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Sales $sales)
+    public function update(SalesFormRequest $request)
     {
-        //
+        $this->authorize('update_sales', Sales::class);
+
+        $validate = $request->validated();
+
+        $update = Sales::find($request->sales_id)->update($validate);
+
+        if($update){
+
+            return back()->with('success', 'Sales has been updated successfully!');
+        }
+
+        return back()->with('error', 'Updating sales is not successful!');
     }
 
     /**
@@ -94,7 +113,8 @@ class SalesController extends Controller
      */
     public function destroy(Sales $sales)
     {
-       
+        $this->authorize('delete_sales', $sales);
+        
         $sales->delete();
         
         return back()->with('success', 'Sales details has been deleted successfully!');
